@@ -1,0 +1,183 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>moving</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #FCE7F0;
+            height: 90px;
+            width: 100%;
+        }
+
+        nav {
+            height: 90px;
+        }
+
+            nav ul {
+                list-style-type: none; /* 목록의 기본 스타일 제거 */
+                margin: 0;
+                padding: 0;
+                overflow: hidden; /* 네비게이션 메뉴가 넘치면 스크롤바를 추가함 */
+            }
+
+                nav ul li {
+                    float: left; /* 항목을 왼쪽으로 정렬 */
+                    height: 90px;
+                }
+
+        .right {
+            float: right;
+            line-height: 90px;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a {
+            display: block; /* 링크를 블록 수준 요소로 설정하여 전체 영역을 클릭 가능하도록 함 */
+            color: black; /* 링크 텍스트 색상 */
+            text-align: center; /* 텍스트 가운데 정렬 */
+            padding: 14px 16px; /* 위아래, 좌우 여백 */
+            text-decoration: none; /* 링크 밑줄 제거 */
+        }
+
+            nav ul li a:hover {
+                font-weight: bold;
+            }
+
+        .navHeigh {
+            height: 90px;
+            width: 100%;
+        }
+
+        .navigation {
+            height: 90px;
+            margin: 0 50px;
+        }
+
+        nav ul {
+            height: 90px;
+        }
+
+        .logo {
+            font-size: 35px;
+            line-height: 90px;
+            display: flex;
+            align-items: center;
+        }
+
+        .font_center {
+            line-height: 90px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search {
+            height: 90px;
+            width: 350px;
+            float: right;
+            display: flex;
+            align-items: center;
+        }
+
+        li div {
+            width: 350px;
+            height: 90px;
+        }
+
+            li div div {
+                width: 350px;
+                height: 40px;
+                padding: 25px 0;
+            }
+
+        form {
+            width: 350px;
+            height: 40px;
+        }
+
+            form label {
+                width: 350px;
+                height: 40px;
+            }
+
+        .input {
+            width: 320px;
+            height: 44px;
+            border: none;
+            border-radius: 10px; /* 입력 필드의 모서리를 둥글게 설정 */
+            background-color: #f7f7f7;
+            padding: 10px;
+        }
+
+        form label input:focus {
+            outline: none; /* 포커스된 입력 필드의 테두리 제거 */
+        }
+        .icon {
+            width: 30px; /* 아이콘의 너비 설정 */
+            height: 30px; /* 아이콘의 높이 설정 */
+        }
+        .nonpadding {
+            display: inline-block; /* <a> 요소를 블록 수준 요소로 설정하여 너비와 높이를 조정할 수 있게 함 */
+            padding: 0; /* <a> 요소의 패딩을 0으로 설정하여 여백을 제거 */
+        }
+        img {
+            vertical-align: middle;
+        }
+        .user-icon {
+            width: 50px; /* 아이콘의 너비 설정 */
+            height: 50px; /* 아이콘의 높이 설정 */
+        }
+        .alr-icon {
+            width: 30px; /* 아이콘의 너비 설정 */
+            height: 30px; /* 아이콘의 높이 설정 */
+            padding-left: 10px;
+        }
+        .a-padding {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="navHeigh">
+                <div class="navigation">
+                    <ul>
+                        <li class="logo"><a href="/" class="a-padding">movle</a></li>
+                        <li class="font_center"><a href="/" class="a-padding">홈</a></li>
+                        <li class="font_center"><a href="/movie" class="a-padding">영화</a></li>
+                        <li class="font_center"><a href="/place" class="a-padding">장소</a></li>
+                        <li class="font_center"><a href="/community" class="a-padding">커뮤니티</a></li>
+                        <li class="font_center"><a href="/map" class="a-padding">지도</a></li>
+                        <li class="right"><a href="#" class="a-padding"><img src="images/user.png" class="user-icon" /></a></li>
+                        <li class="right"><a href="#"class="a-padding"><img src="images/alarm.png" class="alr-icon"> </a></li>
+                        <li class="right"><a href="#" class="nonpadding">
+                            <img src="images/search.png" class="icon"/>
+                        </a></li>
+                        <li class="search">
+                            <div>
+                                <div>
+                                    <form action="#">
+                                        <label>
+                                            <input class="input" autocomplete="off" id="s" placeholder="영화,배우,장소,유저를 검색해보세요." type="text" name="search">
+                                            
+                                        </label>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+	<%- body %>
+</body>
+</html>
+
