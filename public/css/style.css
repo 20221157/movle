@@ -5,6 +5,8 @@ body {
   /*color: #ffbcf8;*/
   font-family: 'Open Sans',Arial,sans-serif;
   font-size: 15px;
+  padding: 0;
+  margin: 0;
 }
 h1,h2,h3,h4,h5{
     font-family: 'Montserrat', sans-serif;
@@ -83,4 +85,7 @@ align-items: center;
 
 .search:hover input, .search input:focus { width: 200px; margin-left: 0px; background: #ffffff;}
 .top-nav .btn {position: absolute;right: 0;top: 4px;border-radius:3px;}
-
+#map {
+	height: 600px;
+	width: 100%;
+}

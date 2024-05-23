@@ -17,7 +17,7 @@ app.use(express.static("public"));
 app.use(favicon("./public/images/movle.png"));
 
 app.get("/", (req, res) => {
-	  res.render("index");
+	  res.render("home");
 });
 app.get("/movie", (req, res) => {
 	res.render("movie");
