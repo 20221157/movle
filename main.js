@@ -2,7 +2,10 @@ const port = 80,
 	express = require("express"),
 	app = express(),
 	layouts = require("express-ejs-layouts"),
-	favicon = require("serve-favicon");
+	favicon = require("serve-favicon"),
+	db = require("./models/index");
+
+db.sequelize.sync();
 
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 80);
@@ -31,7 +34,12 @@ app.get("/community", (req, res) => {
 app.get("/map", (req, res) => {
 	res.render("map");
 });
-
+app.get("/mypage", (req, res) => {
+	res.render("mypage", {layout:false});
+});
+app.get("/login", (req, res) => {
+	res.render("login", {layout:false});
+});
 
 
 

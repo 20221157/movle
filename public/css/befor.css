@@ -1,0 +1,91 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+@import 'https://fonts.googleapis.com/css?family=Montserrat:400,700';
+
+body {
+  /*color: #ffbcf8;*/
+  font-family: 'Open Sans',Arial,sans-serif;
+  font-size: 15px;
+  padding: 0;
+  margin: 0;
+}
+h1,h2,h3,h4,h5{
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+header{float:left; width:100%}
+.navbar {border: medium none; float: left; margin-bottom: 0px; width: 100%;  border-radius: 0}
+.top-head{background: #fedbf4; width: 100%; float:left; height: 68px;}
+.top-head h1 {color: #fff; font-size: 40px; font-weight: 600; margin-top: 25px; margin-left: 4%;}
+
+.top-head .admin-bar {text-align: right; margin-top: 22px;}
+.top-head .admin-bar a {color: #fff; line-height: 49px; position: relative}
+.top-head .admin-bar a:hover{color: #ff0000}
+.top-head .admin-bar a i{margin-right: 6px;}
+.top-head .admin-bar .ping {background: #ff0000; border: 3px solid #141517; border-radius: 50%; height: 14px; position: absolute; right: -2px;    top: 13px; width: 14px; z-index: 1;}
+
+.top-nav{background: #fedbf4; padding: 10px; height: 60px; width: 100%;}
+.top-nav .nav-link { padding-bottom: 0.7rem; padding-top: 0.7rem; }
+.top-nav .navbar-nav .nav-item + .nav-item{margin-left:3px}
+.top-nav li {display:inline ;}
+.top-nav li a{color: #ffffff; text-transform: uppercase; font-size: 14px; font-weight: 700; padding: 0 50px; border-bottom: 2px solid #fff; text-decoration-line: none; }
+.top-nav li a:hover, .top-nav li a:focus, .top-nav li.active a{color: #ff00c3; border-bottom: 2px solid  #ff00c3 }
+.top-nav .form-control{border-color: #fff}
+.top-nav .profile .nav-inline .nav-link{color:white; text-decoration-line: none; float: left; margin-left: 91%; font-weight: 600; }
+.top-nav .profile { margin-top: -130px;}
+.top-nav .material-symbols-outlined {font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+    font-size: 38px;
+    color: white;
+    margin-left: 95%;
+    margin-top: 10px;
+}
+
+.search-box {
+  height: 23px;
+  width: 250px;
+  background:white;
+  border-radius: 40px;
+  padding: 8px;
+  border: 1px solid #f9deec;
+  margin-left: 75%; margin-top: -40px;
+}
+
+.search-txt {
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: #797979;
+  font-size: 16px;
+  line-height: 30px;
+  width: 200px;
+  
+}
+
+.search-btn {
+  color: #f9deec;
+  float: right;
+  width: 40px;
+  height: 100%;
+  border-radius: 50%;
+  background: white;
+  border: none;
+font-size: 16px;
+justify-content: center;
+align-items: center;
+}
+
+#search {float: right; margin-top: 9px; width: 250px;}
+.search {padding: 3px 0; width: 230px; height: 30px; position: relative; left: 10px; float: left; line-height: 22px;}
+
+.search:hover input, .search input:focus { width: 200px; margin-left: 0px; background: #ffffff;}
+.top-nav .btn {position: absolute;right: 0;top: 4px;border-radius:3px;}
+#map {
+	height: 600px;
+	width: 100%;
+}

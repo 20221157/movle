@@ -10,10 +10,17 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-ejs-layouts": "^2.5.1",
     "http-status-code": "^2.1.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.8",
+    "python-shell": "^5.0.0",
+    "sequelize": "^6.37.3",
     "serve-favicon": "^2.5.0"
   }
 }
