@@ -1,17 +1,25 @@
-module.exports = (sequelize, DataTypes) => {
-	  const Director = sequelize.define('Director', {
-		      id: {
-			            type: DataTypes.INTEGER,
-			            primaryKey: true,
-			            autoIncrement: false
-			          },
-		      name: DataTypes.STRING,
-		  image_path: DataTypes.STRING
-		    });
-
-	Director.associate = (models) => {
-		Director.belongsToMany(models.Movie, {through: 'MovieDirector'});
-	};
-	  return Director;
+module.exports = (sequelize, Sequelize) => {
+    class Director extends Sequelize.Model {}
+    Director.init({
+        id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        name: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        imagePath: {
+            type: Sequelize.STRING,
+        }
+    }, {
+        sequelize,
+	timestamps: false,
+        modelName: 'director',
+        charset: 'utf8mb4',
+        collate: 'utf8mb4_unicode_ci',
+    });
+    return Director;
 };
 

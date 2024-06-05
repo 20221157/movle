@@ -21,6 +21,7 @@
     "mysql2": "^3.9.8",
     "python-shell": "^5.0.0",
     "sequelize": "^6.37.3",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "transliterate": "^1.0.1"
   }
 }

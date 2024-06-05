@@ -1,25 +1,32 @@
-module.exports = (sequelize, DataTypes) => {
-	  const Movie = sequelize.define('Movie', {
-		      id: {
-			            type: DataTypes.INTEGER,
-			            primaryKey: true,
-			            autoIncrement: true
-			          },
-		      plot: DataTypes.TEXT,
-		      title: DataTypes.STRING,
-		      posterPath: DataTypes.STRING,
-		      releaseYear: DataTypes.INTEGER
-		    });
-
-	Movie.associate = (models) => {
-		Movie.hasMany(models.Comment);
-		Movie.hasMany(models.Like);
-		Movie.hasMany(models.Rating);
-		Movie.belongsToMany(models.Place, {through: 'MoviePlace'});		
-		Movie.belongsToMany(models.Genre, {through: 'MovieGenre'});
-		Movie.belongsToMany(models.Director, {through: 'MovieDirector'});
-		Movie.belongsToMany(models.Actor, {through: 'MovieActor'});
-	};
-	  return Movie;
+module.exports = (sequelize, Sequelize) => {
+    class Movie extends Sequelize.Model {}
+    Movie.init({
+        id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        title: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        plot: {
+            type: Sequelize.TEXT,
+            allowNull: false
+        },
+        imagePath: {
+            type: Sequelize.STRING,
+        },
+	view: {
+	    type: Sequelize.INTEGER,
+	    defaultValue: 0
+	}
+    }, {
+        sequelize,
+        modelName: 'movie',
+        charset: 'utf8mb4',
+        collate: 'utf8mb4_unicode_ci',
+    });
+    return Movie;
 };
 

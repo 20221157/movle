@@ -3,7 +3,8 @@ const port = 80,
 	app = express(),
 	layouts = require("express-ejs-layouts"),
 	favicon = require("serve-favicon"),
-	db = require("./models/index");
+	db = require("./models/index"),
+	movieController = require('./controllers/movieController');
 
 db.sequelize.sync();
 
@@ -22,9 +23,12 @@ app.use(favicon("./public/images/movle.png"));
 app.get("/", (req, res) => {
 	  res.render("home");
 });
-app.get("/movie", (req, res) => {
-	res.render("movie");
-});
+//app.get("/movie", (req, res) => {
+//	res.render("movie");
+//});
+app.get('/movie', movieController.getMovies);
+app.get('/movie/:id', movieController.getMovieDetails);
+
 app.get("/place", (req, res) => {
 	res.render("place");
 });
@@ -40,7 +44,6 @@ app.get("/mypage", (req, res) => {
 app.get("/login", (req, res) => {
 	res.render("login", {layout:false});
 });
-
 
 
 app.listen(port);

@@ -1,20 +1,24 @@
-module.exports = (sequelize, DataTypes) => {
-	  const Board = sequelize.define('Board', {
-		  id: {
-			  type: DataTypes.INTEGER,
-			  primaryKey: true,
-			  autoIncrement: true
-		  },
-		  name: {
-			  type: DataTypes.STRING,
-			  allowNull: false
-		  }
-	  });
+const { Model, DataTypes } = require('sequelize');
 
-	Board.associate = (models) => {
-		//Board:Post = 1:n
-		Board.hasMany(models.Post);
-	};
-	  return Board;
+module.exports = (sequelize, Sequelize) => {
+        class Board extends Model {}
+	Board.init({
+		id: {
+			type: DataTypes.INTEGER,
+			autoIncrement: true,
+			primaryKey: true
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false
+		}
+	}, {
+		sequelize,
+		timestamps: false,
+		modelName: 'board',
+		charset: 'utf8mb4',
+		collate: 'utf8mb4_unicode_ci'
+	});
+	return Board;
 };
 

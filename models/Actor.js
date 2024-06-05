@@ -1,17 +1,24 @@
-module.exports = (sequelize, DataTypes) => {
-	  const Actor = sequelize.define('Actor', {
-		      id: {
-			            type: DataTypes.INTEGER,
-			            primaryKey: true,
-			            autoIncrement:false 
-			          },
-		      name: DataTypes.STRING,
-		  image_path: DataTypes.STRING
-		    });
-
-	Actor.associate = (models) => {
-		Actor.belongsToMany(models.Movie, {through: 'MovieActor'});
-	};
-	  return Actor;
+module.exports = (sequelize, Sequelize) => {
+    class Actor extends Sequelize.Model {}
+    Actor.init({
+        id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        name: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        imagePath: {
+            type: Sequelize.STRING,
+        }
+    }, {
+        sequelize,
+        modelName: 'actor',
+        charset: 'utf8mb4',
+        collate: 'utf8mb4_unicode_ci',
+    });
+    return Actor;
 };
 

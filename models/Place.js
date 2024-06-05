@@ -1,22 +1,34 @@
-module.exports = (sequelize, DataTypes) => {
-	  const Place = sequelize.define('Place', {
-		      id: {
-			            type: DataTypes.INTEGER,
-			            primaryKey: true,
-			            autoIncrement: true
-			          },
-		      address: DataTypes.STRING,
-		      photoPath: DataTypes.STRING,
-		      name: DataTypes.STRING,
-		      description: DataTypes.TEXT
-		    });
+const { Model, DataTypes } = require('sequelize');
 
-	Place.associate = (models) => {
-		Place.hasMany(models.Comment);
-		Place.hasMany(models.Like);
-		Place.hasMany(models.Rating);
-		Place.belongsToMany(models.Movie, {through: 'MoviePlace'});
-	};
-	  return Place;
+module.exports = (sequelize, Sequelize) => {
+    class Place extends Model {}
+
+    Place.init({
+        Id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        potoPath: {
+            type: DataTypes.STRING
+        },
+	description: {
+	    type: DataTypes.TEXT
+	},
+	name: {
+	    type: DataTypes.STRING
+	},
+	view: {
+	    type: DataTypes.INTEGER,
+	    defaultValue: 0
+	}
+    }, {
+        sequelize,
+        modelName: 'place',
+        charset: 'utf8mb4',
+        collate: 'utf8mb4_unicode_ci',
+    });
+
+    return Place;
 };
 

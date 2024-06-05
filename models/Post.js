@@ -1,5 +1,7 @@
+const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	const Post = sequelize.define('Post', {
+	class Post extends Model {}
+	Post.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -10,19 +12,31 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false
 		},
 		photoPath: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			allowNull: true
+		},
+		boardId: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			references: {
+				model: 'boards',
+				key: 'id'
+			}
+		},
+		userId: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			references: {
+				model: 'users',
+				key: 'id'
+			}
 		}
+	},{
+		sequelize,
+                modelName: 'post',
+                charset: 'utf8mb4',
+                collate: 'utf8mb4_unicode_ci'
 	});
-	Post.associate = (models) => {
-		//Board:Post = 1:n
-		Post.belongsTo(models.Board);
-		// User:Post = 1:n
-		Post.belongsTo(models.User);
-		// Post:Comment = 1:n
-		Post.hasMany(models.Comment);
-		// Post:Like = 1:n
-		Post.hasMany(models.Like);
-	};
 
 	return Post;
 };

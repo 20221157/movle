@@ -97,3 +97,73 @@ align-items: center;
 	text-decoration: none;
 	color: white;
 }
+
+/* Ratings widget */
+.rate {
+    display: inline-block;
+    color: rgb(230, 230, 230);
+    border: 0;
+}
+/* Hide radio */
+.rate > input {
+    display: none;
+}
+/* Order correctly by floating highest to the right */
+.rate > label {
+    float: right;
+}
+/* The star of the show */
+.rate > label:before {
+    display: inline-block;
+    font-size: 2rem;
+    padding: .3rem .2rem;
+    margin: 0;
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f005 "; /* full star */
+}
+/* Zero stars rating */
+.rate > label:last-child:before {
+    content: "\f006 "; /* empty star outline */
+}
+/* Half star trick */
+.rate .half:before {
+    content: "\f089 "; /* half star no outline */
+    position: absolute;
+    padding-right: 0;
+}
+/* Click + hover color */
+input:checked ~ label, /* color current and previous stars on checked */
+label:hover, label:hover ~ label { color: #ffbcf8;  } /* color previous stars on hover */
+
+/* Hover highlights */
+input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
+input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
+label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #ffbcf8;  } 
+
+.movie-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px; /* 영화 사이의 간격 */
+	justify-content: center; /* 가운데 정렬 */
+}
+
+.movie {
+	flex: 1 0 21%; /* 각 영화의 기본 너비와 최소 너비 설정 */
+	box-sizing: border-box;
+	text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.movie img {
+	max-width: 100%; /* 이미지가 컨테이너를 넘어가지 않도록 */
+	height: auto;
+}
+
+.movie h2 {
+	font-size: 1.2em;
+	margin: 10px 0 0;
+}
+.movie_a {
+	text-decoration: none; /* 밑줄 제거 */
+	color: inherit; /* 링크의 색상을 부모 요소에서 상속받도록 설정 */
+}

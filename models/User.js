@@ -1,7 +1,9 @@
+const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	  const User = sequelize.define('User', {
+	  class User extends Model {}
+	  User.init({
 		  id: {
-			  type: DataTypes.INTEGER,
+			  type: DataTypes.STRING,
 			  primaryKey: true
 		  },
 		  password: {
@@ -9,8 +11,9 @@ module.exports = (sequelize, DataTypes) => {
 			  allowNull: false
 		  },
 		  nickname: {
-			      type: DataTypes.STRING,
-			      allowNull: false
+			  type: DataTypes.STRING,
+			  allowNull: false,
+			  unique: false
 		  },
 
 		  name: {
@@ -29,31 +32,12 @@ module.exports = (sequelize, DataTypes) => {
 				              const ageDate = new Date(ageDifMs);
 				              return Math.abs(ageDate.getUTCFullYear() - 1970);
 				          }
-		  }
+		  },
+		  sequelize,
+                  modelName: 'user',
+                  charset: 'utf8mb4',
+                  collate: 'utf8mb4_unicode_ci'
 
 	  });
-	User.associate = (models) => {
-		// User:Post = 1:n
-		User.hasMany(models.Post);
-		//User:User = n:m (e.g., friends or followers)
-		User.belongsToMany(models.User, {
-			as: 'followers', 
-			through: 'Follow',
-			foreignKey: 'followedId',
-			otherKey: 'followerId'
-		});
-		User.belongsToMany(models.User, { 
-			as: 'followings', 
-			through: 'Follow', 
-			foreignKey: 'followerId',
-			otherKey: 'followedId'
-		});
-                // User:Comment = 1:n
-                User.hasMany(models.Comment);
-                // User:Like = 1:n
-                User.hasMany(models.Like);
-                // User:Rating = 1:n
-                User.hasMany(models.Rating);
-	  };
 	return User;
 };

@@ -1,16 +1,22 @@
-module.exports = (sequelize, DataTypes) => {
-	  const Genre = sequelize.define('Genre', {
-		      id: {
-			            type: DataTypes.INTEGER,
-			            primaryKey: true,
-			            autoIncrement: true
-			          },
-		      name: DataTypes.STRING
-		    });
-
-	Genre.associate = (models) => {
-		Genre.belongsToMany(models.Movie, {through: 'MovieGenre'});
-	};
-	  return Genre;
+module.exports = (sequelize, Sequelize) => {
+    class Genre extends Sequelize.Model {}
+    Genre.init({
+        id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        name: {
+            type: Sequelize.STRING,
+            allowNull: false
+        }
+    }, {
+        sequelize,
+	timestamps: false,
+        tableName: 'genres',
+        charset: 'utf8mb4',
+        collate: 'utf8mb4_unicode_ci',
+    });
+    return Genre;
 };
 

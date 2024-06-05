@@ -1,5 +1,8 @@
+const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	const Comment = sequelize.define('Comment', {
+	class Comment extends Model {}
+	
+	Comment.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -8,42 +11,56 @@ module.exports = (sequelize, DataTypes) => {
 		content: {
 			type: DataTypes.TEXT,
 			allowNull: false
-		}
+		},
+		userId: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			references: {
+				model: 'users',
+				key: 'id'
+			}
+		},
+		movieId: {
+                        type: DataTypes.INTEGER,
+			allowNull: true,
+                        references: {
+                                model: 'movies',
+                                key: 'id'
+                        }
+		},
+                placeId: {
+                        type: DataTypes.INTEGER,
+			allowNull: true,
+                        references: {
+                                model: 'places',
+                                key: 'id'
+                        }
+                },
+                postId: {
+                        type: DataTypes.INTEGER,
+                        allowNull: true,
+                        references: {
+                                model: 'posts',
+                                key: 'id'
+                        }
+                },
+                commentId: {
+		        type: DataTypes.INTEGER,
+                        allowNull: true,
+                        references: {
+                                model: 'comments',
+                                key: 'id'
+                        }
+                }
+
+	},{
+		sequelize,
+		modelName: 'comment',
+                charset: 'utf8mb4',
+                collate: 'utf8mb4_unicode_ci',
 	});
+	return Comment;
+}
 
-	Comment.associate = (models) => {
-		//User:Comment = 1:n
-		Comment.belongsTo(models.User);
-		// Post:Comment = 1:n
-		Comment.belongsTo(models.Post, {
-			foreignKey: {
-		        	allowNull: true
-			}
-		});
-		// Movie:Comment = 1:n
-		Comment.belongsTo(models.Movie, {
-			foreignKey: {
-				allowNull: true
-			}
-		});
-		// Place:Comment = 1:n
-		Comment.belongsTo(models.Place, {
-		        foreignKey: {
-		        	allowNull: true
-		        }
-		});
-		// Comment:Like = 1:n
-		Comment.hasMany(models.Like)
 
-	        Comment.belongsTo(models.Comment, {
-			as: 'ParentComment',
-			foreignKey: {
-				allowNull:true
-			}
-		});
-
-	        Comment.hasMany(models.Comment, {as: 'Replies'});
-	};
-	  return Comment;
-};
 
