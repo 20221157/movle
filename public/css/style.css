@@ -44,7 +44,7 @@ header{width:100%; min-width: 100px;}
   padding: 8px;
   float: right;
   margin-right: 40px;
-  position: fixed;
+  position: absoulute;
   top: 90px;
   right: 0;
 }

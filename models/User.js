@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
+const passportLocalSequelize = require("passport-local-sequelize");
 module.exports = (sequelize, DataTypes) => {
 	  class User extends Model {}
 	  User.init({
@@ -7,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 			  primaryKey: true
 		  },
 		  password: {
-			  type: DataTypes.STRING,
+			  type: DataTypes.STRING(1024),
 			  allowNull: false
 		  },
 		  nickname: {
@@ -23,6 +24,13 @@ module.exports = (sequelize, DataTypes) => {
 		  birthdate: {
 			  type: DataTypes.DATE,
 			  allowNull: false
+		  },
+		  email: {
+			  type: DataTypes.STRING,
+			  allowNull: false
+		  },
+		  salt: {
+			  type: DataTypes.STRING
 		  }
 	  }, {
 		  getterMethods: {
@@ -39,5 +47,12 @@ module.exports = (sequelize, DataTypes) => {
                   collate: 'utf8mb4_unicode_ci'
 
 	  });
+
+	passportLocalSequelize.attachToUser(User, {
+		usernameField: 'id',
+		hashField: 'password',
+		saltField: 'salt'
+	});
 	return User;
 };
+

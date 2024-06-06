@@ -1,1 +1,27 @@
-<h1> login </h1>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form action="/login" method="post">
+        <div>
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+    <p id="loginMessage"></p>
+
+    <a href="/signup">Sign Up</a>
+    <a href="/forgotpassword">Forgot Password</a>
+</body>
+</html>
