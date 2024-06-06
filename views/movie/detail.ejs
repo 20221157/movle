@@ -63,10 +63,12 @@
                     <div class="summary">
                         <nav id="nav-summary">
                             <ul id="summary-detail">
-                                <li><h1><%= movie.title %></h1></li>
-                                <li><a>movie.director</a></li>
-                                <li><a>movie</a></li>
-                                <li><a>movie.genre</a></li>
+                                <ul id="summary-detail">
+                                  <li><h1><%= movie.title %></h1></li>
+                                <% movie.directors.forEach(function(director){ %>
+                                  <li><%= director.name %></li>
+                                <% }); %>
+                                  <li><a>movie.genre</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -129,10 +131,12 @@
             </header>
             <div class="appearance-actor">
                 <ul id="actor">
-                    <li><a><%= movie.director %></a></li>
-                    <% movie.directors.forEach(director => { %>
-                        <li><%= director.name %></li>
-                      <% }); %>
+                  <% movie.directors.forEach(function(director){ %>
+                      <li><a><%= director.name %></a></li>
+                  <% }); %>
+                  <% movie.actors.forEach(function(actor){ %>
+                    <li><a><%= director.name %></a></li>
+                  <% }); %>
                 </ul>
             </div>
         </div>
