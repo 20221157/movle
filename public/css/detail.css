@@ -1,0 +1,315 @@
+.section-top{
+    background-color:#fedbf4;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.ThumbnailWrap{
+    width: 65%;
+    height: 594px;
+    display: flex;
+    border-radius: 3px;
+    background-color:white;
+    justify-content: center;
+}
+.section-bottom{
+    min-width: 400px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 0 25%;
+    
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.movie-Thumbnail{
+    
+    display: flex;
+    justify-content: center;
+    background-size:cover;
+    height: 594px;
+    width: 420px;
+    overflow: hidden;
+}
+.summaryWrap{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+}
+.summary{
+    width: 300px;
+    height:230px;
+    position: relative;
+    left: 262px;
+    display: flex;
+}
+#nav-summary{
+    background-color: rgba(240, 248, 255, 0.232);
+    bottom: 0;
+    left: 260px;
+    
+}
+#summary-detail{
+    
+    list-style-type: none;
+    text-decoration: none;
+}
+#summary-detail li{
+    
+    margin-bottom: 10px;
+}
+#summary-detail li a{
+    
+    color: black;
+
+}
+.movieInfo{
+    display: flex;
+    overflow: auto;
+    min-width: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 90%;
+    position: relative;
+    height: 600px;
+    background-color: rgba(128, 128, 128, 0.085);
+}
+
+.poster-section{
+    display: block;
+    width:280px;
+    height: 500px;
+    border-right: 1px solid gray;
+}
+.info-section{
+    display: block;
+    flex: 1 1 0%;
+    right: 0;
+    width: 600px;
+    top: 0;
+    height: 500px; 
+    
+}
+.poster{
+    position: relative;
+    width: 210px;
+    height: 297px;
+    margin-left: 32px;
+    margin-top: 32px;
+}
+
+#poster{
+    vertical-align: middle;
+    width: 210px;
+    height: 297px;
+    object-fit: cover;
+}
+
+
+.star-Rating{
+    grid-column: 1;
+    width: 100%;
+    height: 100px;
+    display: block;
+}
+.rating{
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    display: flex;
+}
+.func{
+    -webkit-box-pack: justify;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100px;
+    border-top: 1px solid rgb(217, 217, 217);
+    border-bottom: 1px solid rgb(217, 217, 217);
+    margin: 0px auto;
+}
+.movieFunc{
+    height: 200px;
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    width:100%;
+}
+.movie-plot{
+    width: 100%;
+
+}
+.movie-plot a{
+    display: inline-block;
+    margin: 7px;
+}
+.func button{
+    cursor: pointer;
+    margin-top: 15px;
+    display: flex;
+    cursor: pointer;
+    border: none;
+    align-items: center;
+    overflow: hidden;
+    width: 80px;
+    height: 60px;
+    flex-direction: column;
+    background: none;
+}
+.func button a{
+    font-size: 12px;
+    margin-top: 4px;
+}
+.fa-regular fa-heart{
+
+}
+.bookmark-icon{
+    width: 50px;
+    height: 50px;
+}
+.bookmark-icon.clicked{
+    fill: #ffbcf8;
+}
+.heart-icon{
+    width: 50px;
+    height: 50px;
+}
+.heart-icon.clicked{
+    fill: #ffbcf8;
+}
+.comment-icon{
+    width: 50px;
+    height: 35px;
+}
+.comment-icon.clicked{
+    fill: #ffbcf8;
+}
+.appearanceWrap{
+    display: block;
+    width: 90%;
+    height: 350px;
+}
+
+.appearanceWrap header{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    background-color:aliceblue;
+    
+}
+.appearanceWrap header a{
+    display: inline-block;
+}
+
+#actor{
+    height: 310px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.appearanceWrap  ul li {
+    background-color: #f9deecbf;
+    border-radius: 3px;
+    margin-left: 3px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.482);
+    width: 23%;
+    height:62px;
+    display: flex;
+    align-items: center;
+}
+#actor li a {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+}
+.comment-section {
+    margin-bottom: 20px;
+
+}
+.comment-form {
+margin-top: 10px;
+
+display: none;
+}
+  
+.comment-form textarea {
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+  
+.comment-form button[type="submit"] {
+    background-color:#fedbf4;
+    border-radius: 2px;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+.comment-form textarea{
+    width: 100%;
+    border-radius: 3px;
+    background-color:rgba(128, 128, 128, 0.095);
+    border: 0;
+}
+textarea:focus{
+    outline: none;
+}
+.comment-form.hidden {
+}
+
+.comment{
+
+    width: 90%;
+    display: block;
+
+}
+.comment header{
+    display: flex;
+    align-items: center;
+    background-color: aliceblue;
+    height: 50px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.692);
+}
+
+.comment ul{
+    position: relative;
+    grid-template-columns: repeat(4, minmax(0px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    height: 250px;
+    gap: 50px;
+    list-style-type: none;
+    border: 1px solid red;
+}
+.comment ul li{
+    padding: 10px;
+}
+.comment ul li a{
+    color: black;
+    text-decoration: none;
+}
+
+
+#comment-object{
+    border: 1px solid black;
+    width: 120px;
+    height: 200px;
+    flex: 1 1 calc(25% - 10px);
+
+}
