@@ -1,0 +1,270 @@
+fieldset {
+    border: none;
+}
+legend {
+    visibility: hidden;
+
+
+}
+#nameWrap{
+    position: relative;
+    display: block;
+    height: 60px;
+}
+#userName{
+    display: flex;
+    margin-top: 15px;
+    font-size: 25px;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    width: 180px;
+    height: 35px;
+}
+#userName a {
+    display: absolute;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.293);
+}
+#btnEdit{
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    left: 175px;
+    bottom:8px;
+    padding: 10px;
+    border: 0;
+}
+#edit-name-form{
+    height: 40px;
+    display: none;
+    width: 200px;
+    height: 100px;
+}
+#saveButton{
+    border: none;
+    border-radius: 20px;
+    position: absolute;
+    padding: 2px;
+    margin: 0;
+    height: 32px;
+    top: 45px;
+    right: 5px;
+}
+#nameInput{
+
+    width: 200px;
+    border-radius: 30px;
+    border: none;
+    background-color: #ffa5e626;
+    position: absolute;
+    top: 55px;
+    left: 0px;
+    font-size: 16px;
+}
+.edit-picture-button{
+    width: 20px;
+    height: 20px;
+    bottom: 10px;
+    right: 0px;
+    border-radius: 50%;
+    position: absolute;
+    background-image: url(./img/camera.png);
+    background-size: cover;
+    cursor: pointer;
+}
+#file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+.input-wrapper{
+    display: inline-block;
+    width: 28px;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+    right: 20%;
+}
+#profilePicture{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 200px;
+    margin-top: 80px;
+}
+
+#circle{
+    border: 3px solid rgba(255, 255, 255, 0);
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+#userName a {
+    left: 65px;
+    position: absolute;
+    color: #565656;
+}
+
+#profileWrap{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    height: 300px;
+    /*border: 2px solid #f9deec solid red;*/
+}
+
+
+#circle img{
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    margin: 0;
+}
+nav ul li{
+    margin-left: 10px;
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+nav ul {
+    margin-right: 50px;
+    display: flex;
+    list-style-type: none;
+}
+nav ul li a {
+
+    padding: 15px;
+    min-width: 80px;
+
+    text-decoration: none;
+    display: inline-block;
+}
+nav{
+    display: flex;
+}
+.nav_items{
+    overflow: visible;
+
+}
+#listWrap {
+
+    border-radius: 10px;
+    border: 3px solid #f5828e69;
+    flex-direction: column;
+    background-color: #ffffff;
+    width:150px;
+    height:200px;
+    position: sticky;
+    border-radius:25px;
+    top:200px;
+    margin-top: 50px;
+    left: 50px;
+}
+#listWrap ul{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    list-style-type: none;
+
+}
+#listWrap ul li{
+    margin-block-start: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+
+}
+#listWrap ul li a {
+    display: block;
+    text-decoration: none;
+    color: #ff939d;
+    display: inline-block;
+    padding: 1px;
+}
+.sideBar{
+    min-width: 250px;
+    width: 260px;
+    height: 100vh;
+    display: flex;
+}
+.main{
+    border-top: 1px solid #f9deec;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    position: relative;
+    top: 40px;
+    }
+#contentsWrap{
+
+    display: flex;
+    flex-grow: 1;
+    height: 100vh;
+    flex-direction: column;
+}
+#contentsTitle{
+    color: #565656;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+#contentsTitle a {
+    margin: 8px;
+    font-size: 25px;
+    line-height: 50px;
+}
+#titleIcon{
+    margin-left: -2px;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}
+.contentsBody{
+    background-color: #ffecee6b;
+    border-radius: 3px;
+    flex-grow: 1;
+    height: 100vh;
+}
+#contentsTree{
+
+}
+#contentsTree ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+    text-decoration: none;
+}
+#contentsTree ul li{
+    background-color: #fde9f394;
+    border-radius: 30px;
+    padding: 2px 14px;
+    display: inline-block;
+    margin-right: 15px;
+
+}
+
+#contentsTree ul li{
+    color: #797979;
+}
+
+#contentsTree ul li a {
+    text-decoration: none;
+}
+
+#contentsTree ul li a:hover {
+    color: #565656;
+}
+#contentsTree ul li:last-child{
+
+    margin-right: 0;
+}
