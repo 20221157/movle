@@ -1,1 +1,172 @@
-<h1> mypage </h1>
+<!DOCTYPE html>
+<html lang="ko">
+<head>  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>MOVLE</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+    $('.sideBarUl li').click(function() {
+        // 클릭한 li 요소의 텍스트를 가져와서 콘텐츠 제목(a 태그)에 설정합니다.
+        var listItemText = $(this).text();
+        $('#contentsName').text(listItemText);
+
+        // 클릭한 li 요소에 따라 이미지를 변경합니다.
+        var imgSrc = "";
+        switch(listItemText) {
+            case "Likes":
+                imgSrc = "/images/mypage/heart.png"; /*"/images/mypage/heart.png"; */
+                break;
+            case "Bookmarks":
+                imgSrc =  "/images/mypage/bookmark.png"; /* "/images/mypage/icon/bookmark.png"; */
+                break;
+            case "Posts":
+                imgSrc =  "/images/mypage/posts.png"; /* "/images/mypage/icon/posts.png"; */
+                break;
+            case "Settings":
+                imgSrc =  "/images/mypage/settings.png";  /* "/images/mypage/icon/settings.png"; */
+                break;
+            default:
+                imgSrc = "";
+        }
+        $('#titleIcon').attr('src', imgSrc);
+    });
+});
+
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/97d16674b9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" type="text/css" href="/public/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="./header.css">
+    <link rel="stylesheet" type="text/css" href="/css/mypage.css">
+    <script src="/main.js"></script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS7TvY3zbDbMsQIm9dVQsg9u94tq4DAds&callback=initMap">
+    </script>
+    <script src="/js/map.js"></script>
+    <link rel="stylesheet" href="./mypage.css" />
+    <script>
+    const menuItems = document.querySelectorAll(".sideBarUl");
+    const titleElement = document.getElementById("contentsName");
+        
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // data-title 속성에서 제목 가져오기
+            const newTitle = item.getAttribute('a');
+            // a 태그의 내용 변경
+            titleElement.textContent = newTitle;
+        }); 
+    });
+
+$(document).ready(function() {
+    // #btnEdit를 클릭할 때 edit-name-form을 토글합니다.
+    $('#btnEdit').click(function() {
+        $('#edit-name-form').toggle();
+    });
+
+    $('#saveButton').click(function() {
+        // input에 입력된 새 이름을 가져옵니다.
+        var newName = $('#nameInput').val();
+        
+        // #userName의 내용을 새 이름으로 업데이트합니다.
+        $('#userName a').text(newName);
+        
+        // form을 다시 숨김 상태로 만듭니다.
+        $('#edit-name-form').hide();
+        
+        // 버튼 클릭 후 페이지 이동을 방지합니다.
+        return false;
+    });
+});
+
+</script>
+</head>
+</head>
+<body>
+  <div id="wrap">
+    <div id="profileWrap">
+      <div id="profile">
+        <div id="profilePicture">
+          <div id="circle">
+            <img src="/images/mypage/profile.jpg"> //나중에 경로 User로 바꿔야함
+          </div>
+        <div class="input-wrapper">
+          <div class="edit-picture-button"></div>
+            <input type="file" id="file-input" role="editProfilePicture">
+          </div>
+        </div>
+        <div id="nameWrap">
+          <div id="userName">
+            <a>username</a>
+          </div>
+          <svg id="btnEdit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg>
+          <div class="edit-name-form" id="edit-name-form">
+            <input type="text" id="nameInput" placeholder="새 이름 입력">
+            <button id="saveButton" type="submit">저장</button>
+          </div>
+        </div>
+     </div>
+  </div>
+</div>
+       <section class=main role="mainSection">
+            <section class="sideBar">
+                <aside id="listWrap">
+                        <ul class="sideBarUl">
+                        <li><a href="#">Likes</a></li>
+                        <li><a href="#">Bookmarks</a></li>
+                        <li><a href="#">Posts</a></li>
+                        <li><a href="#">Settings</a></li>
+                        </ul>
+
+                </aside>
+            </section>
+
+            <section id="contentsWrap">
+                    <span id="contentsTitle">
+                        <img src="/images/mypage/heart.png" id="titleIcon">
+                        <a id="contentsName">Likes</a>
+                    </span>
+                    <div id="contentsTree">
+                        <ul>
+                            <li><a href="#">영화</a></li>
+                            <li><a href="#">장소</a></li>
+                            <li><a href="#">게시글</a></li>
+                        </ul>
+                    </div>
+                      <div class="contentsBody">
+                            <div class="contents">
+                                <div class="likes" id="movieLikes">
+
+                                </div>
+                                <div class="likes" id="postLikes">
+
+                                </div>
+                                <div class="likes" id="commentLikes">
+
+                                </div>
+                                <div class="bookmarks" id="movieBookmarks">
+
+                                </div>
+                                <div class="bookmarks" id="postBookmarks">
+
+                                </div>
+                                <div class="bookmarks" id="commentsBookmarks">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+            </section>
+
+
+        </section>
+</body>
+<footer>
+</footer>
+</html>
