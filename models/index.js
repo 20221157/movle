@@ -19,6 +19,7 @@ db.Place = require('./Place')(sequelize, Sequelize);
 db.Genre = require('./Genre')(sequelize, Sequelize);
 db.Director = require('./Director')(sequelize, Sequelize);
 db.Actor = require('./Actor')(sequelize, Sequelize);
+db.Address = require('./Address')(sequelize, Sequelize);
 
 db.Follow = require('./Follow')(sequelize, Sequelize);
 db.MoviePlace = require('./MoviePlace')(sequelize, Sequelize);

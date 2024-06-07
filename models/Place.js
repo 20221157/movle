@@ -21,6 +21,14 @@ module.exports = (sequelize, Sequelize) => {
 	view: {
 	    type: DataTypes.INTEGER,
 	    defaultValue: 0
+	},
+	addressId: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		references: {
+			model: 'addresses',
+			key: 'id'
+		}
 	}
     }, {
         sequelize,
