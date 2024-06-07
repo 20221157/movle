@@ -55,9 +55,7 @@ app.get("/community", (req, res) => {
 app.get("/map", (req, res) => {
 	res.render("map",{ isLogged: req.isAuthenticated() });
 });
-app.get("/mypage", userController.requireLogin, (req, res) => {
-	res.render("mypage", {layout:false});
-});
+app.get("/mypage", userController.requireLogin, userController.renderMyPage);
 app.get("/login", userController.login);
 app.post("/login", userController.authenticate);
 

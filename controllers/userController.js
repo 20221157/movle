@@ -19,11 +19,15 @@ module.exports = {
                 successRedirect: "/",
         }),
 	requireLogin: (req, res, next) => {
-		if (req.isAuthenticated) {  //req.session && req.session.user => req.isAuthenticated
+		if (req.isAuthenticated()) {  //req.session && req.session.user => req.isAuthenticated
 			return next();
 		}else {
 			return res.redirect("/login");
 		}
+	},
+	renderMyPage: (req, res) => {
+		const userNickname = req.user.nickname;
+		res.render("mypage", { layout: false, userNickname: userNickname });
 	},
 	redirectView: (req, res) => {
 		res.redirect('/');
