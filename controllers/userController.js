@@ -19,7 +19,7 @@ module.exports = {
                 successRedirect: "/",
         }),
 	requireLogin: (req, res, next) => {
-		if (req.session && req.session.user) {
+		if (req.isAuthenticated) {  //req.session && req.session.user => req.isAuthenticated
 			return next();
 		}else {
 			return res.redirect("/login");
