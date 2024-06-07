@@ -18,6 +18,13 @@ module.exports = {
 		failureRedirect: "/login",
                 successRedirect: "/",
         }),
+	requireLogin: (req, res, next) => {
+		if (req.session && req.session.user) {
+			return next();
+		}else {
+			return res.redirect("/login");
+		}
+	},
 	redirectView: (req, res) => {
 		res.redirect('/');
 	},
