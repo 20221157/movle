@@ -35,7 +35,7 @@
                 </div>
 	    	
                 <div class="movie-plot">
-                    <a><%= movie.plot %></a>
+                    <a><%- movie.plot.replace(/(\.|\,|\!|\?)/g, '<br>'); %></a>
                 </div>
 		<div class="summaryWrap">
                             <ul id="summary-detail">

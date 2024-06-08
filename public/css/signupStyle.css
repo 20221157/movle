@@ -1,0 +1,55 @@
+.signup-container {
+    font-family: Arial, sans-serif;
+    background-color: #fcfcfc; /* 약간의 음영을 추가한 흰색 */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.signup-container h2 {
+    margin-bottom: 20px;
+}
+
+.signup-container div {
+    margin-bottom: 15px; /* 입력 필드와 라벨 간격 조정 */
+}
+
+.signup-container label {
+    display: inline-block;
+    width: 100px; /* 라벨 너비 조정 */
+    text-align: left;
+}
+
+.signup-container input[type="text"],
+.signup-container input[type="password"],
+.signup-container input[type="email"],
+.signup-container input[type="date"] {
+    width: calc(100% - 110px); /* 입력 필드 너비 조정 */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.signup-container button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #ffbcf8; /* 분홍색 */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signup-container button:hover {
+    background-color: #ff8be8; /* 분홍색 더 밝은 색 */
+}

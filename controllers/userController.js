@@ -33,7 +33,7 @@ module.exports = {
 		res.redirect('/');
 	},
 	getSingupPage: (req, res) => {
-		res.render('signup',{layout: true}); // 회원가입 폼을 제공하는 뷰 렌더링 //false => true 수정
+		res.render('signup',{layout: false}); // 회원가입 폼을 제공하는 뷰 렌더링 //false => true 수정
 	},
 	singupUser: async (req, res) => {
 		try {

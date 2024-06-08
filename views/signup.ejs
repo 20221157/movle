@@ -1,41 +1,44 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/signupStyle.css"> <!-- 외부 CSS 파일 로드 -->
     <title>Sign Up Page</title>
 </head>
 <body>
-    <h2>Sign Up</h2>
-    <form action="/signup" method="post">
-        <div>
-            <label for="id">ID:</label>
-            <input type="text" id="id" name="id" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <label for="nickname">Nickname:</label>
-            <input type="text" id="nickname" name="nickname" required>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name">
-        </div>
-        <div>
-            <label for="dob">Date of Birth:</label>
-            <input type="date" id="dob" name="birthdate">
-        </div>
-        <div>
-            <button type="submit">Sign Up</button>
-        </div>
-    </form>
-    <p id="signupMessage"></p>
-
+    <div class="signup-container"> <!-- 추가된 부분 -->
+        <h2>Sign Up</h2>
+        <form action="/signup" method="post">
+            <div>
+                <label for="id">ID:</label>
+                <input type="text" id="id" name="id" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label for="nickname">Nickname:</label>
+                <input type="text" id="nickname" name="nickname" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div>
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="birthdate">
+            </div>
+            <div>
+                <button type="submit">Sign Up</button>
+            </div>
+        </form>
+        <p id="signupMessage"></p>
+    </div> <!-- 추가된 부분 -->
 </body>
 </html>
