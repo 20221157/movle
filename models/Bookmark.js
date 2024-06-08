@@ -1,19 +1,11 @@
 const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	  class Rating extends Model{}
-	  Rating.init({
+	  class Bookmark extends Model{}
+	  Bookmark.init({
 		  id: {
 			  type: DataTypes.INTEGER,
 			  primaryKey: true,
 			  autoIncrement: true
-		  },
-		  rating: {
-			  type: DataTypes.INTEGER,
-			  defaultValue: 5,
-			  validate: {
-				  min: 0,
-				  max: 5
-			  }
 		  },
 		  userId: {
 			  type: DataTypes.STRING,
@@ -41,24 +33,23 @@ module.exports = (sequelize, DataTypes) => {
 		  }
 	  },{
 		 hooks: {
-                        beforeCreate: (rating, options) => {
-                                const { movieId, placeId } = rating;
+                        beforeCreate: (bookmark, options) => {
+                                const { movieId, placeId } = bookmark;
 
                                 // 영화, 장소, 게시글 중 하나만 값이 있고 나머지는 null이어야 함
                                 const nonNullFields = [movieId, placeId].filter(field => field !== null);
 
                                 if (nonNullFields.length !== 1) {
                                 throw new Error('영화, 장소 중 하나만 값이 있어야 하며, 나머지는 null이어야 합니다.');
-
 				}
                         }
                   },
 
 		  sequelize,
-                  modelName: 'rating',
+                  modelName: 'bookmark',
                   charset: 'utf8mb4',
                   collate: 'utf8mb4_unicode_ci'
 	  });
-	  return Rating;
+	  return Bookmark;
 };
 
