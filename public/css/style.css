@@ -14,9 +14,7 @@ header{width:100%; min-width: 100px;}
 .navbar {border: medium none; float:left; margin-bottom: 0px; width: 100%;  border-radius: 0}
 .top-head{background: #fedbf4; width: 100%; float:left; height: 68px;}
 .top-head h1 {color: #fff; font-size: 40px; font-weight: 600; margin-top: 25px; margin-left: 4%;}
-
-
-.top-nav{background: #fedbf4; padding: 10px; height: 60px; width: 100%;}
+.top-nav{background: #fedbf4; padding: 0; height: 60px; width: 100%;}
 .top-nav .nav-link {padding-bottom: 0.7rem; padding-top: 0.7rem; }
 .top-nav .navbar-nav .nav-item + .nav-item{margin-left:3px;}
 .navbar-nav{width: 850px; display:block; overflow:visible;}
@@ -115,20 +113,25 @@ align-items: center;
 /* The star of the show */
 .rate > label:before {
     display: inline-block;
-    font-size: 2rem;
+    font-size: 3rem;
     padding: .3rem .2rem;
     margin: 0;
     cursor: pointer;
     font-family: FontAwesome;
     content: "\f005 "; /* full star */
 }
+
 /* Zero stars rating */
+.rate > input:checked ~ label:first-child ~ label:before,
+.rate > label:last-child:not(:checked):before {
+	    content: "\f005 "; /* full star */
+    }
 .rate > label:last-child:before {
     content: "\f006 "; /* empty star outline */
 }
 /* Half star trick */
 .rate .half:before {
-    content: "\f089 "; /* half star no outline */
+    content: "\f089"; /* half star no outline */
     position: absolute;
     padding-right: 0;
 }
@@ -139,8 +142,7 @@ label:hover, label:hover ~ label { color: #ffbcf8;  } /* color previous stars on
 /* Hover highlights */
 input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
 input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
-label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #ffbcf8;  } 
-
+label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #ffbcf8;  }
 .movie-list {
 	display: flex;
 	flex-wrap: wrap;
@@ -166,4 +168,9 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 .movie_a {
 	text-decoration: none; /* 밑줄 제거 */
 	color: inherit; /* 링크의 색상을 부모 요소에서 상속받도록 설정 */
+}
+.movie-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	grid-gap: 50px;
 }

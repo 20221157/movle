@@ -73,13 +73,18 @@ exports.getMovieDetails = async (req, res) => {
         {
           model: db.Director,
           as: 'directors', // 감독 정보를 가져올 때 사용할 별칭
-          attributes: ['name'] // 가져올 속성 지정
+          attributes: ['name', 'imagePath'] // 가져올 속성 지정
         },
         {
           model: db.Actor,
           as: 'actors', // 배우 정보를 가져올 때 사용할 별칭
-          attributes: ['name'] // 가져올 속성 지정
-        }
+          attributes: ['name', 'imagePath'] // 가져올 속성 지정
+        },
+	{
+	  model: db.Genre, // 장르 모델
+	  as: 'genres', // 장르 정보를 가져올 때 사용할 별칭
+	  attributes: ['name'] // 가져올 속성 지정
+	}
       ]
     });
     if (!movie) {

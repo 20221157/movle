@@ -32,7 +32,7 @@ db.Movie.belongsToMany(db.Actor, { through: 'MovieActor' });
 db.Director.belongsToMany(db.Movie, { through: 'MovieDirector' });
 db.Movie.belongsToMany(db.Director, { through: 'MovieDirector' });
 
-db.Genre.belongsToMany(db.Movie, { through: 'MovieGenre' });
-db.Movie.belongsToMany(db.Genre, { through: 'MovieGenre' });
+db.Genre.belongsToMany(db.Movie, { through: 'MovieGenre', as: 'genres' });
+db.Movie.belongsToMany(db.Genre, { through: 'MovieGenre', as: 'genres' });
 
 module.exports = db;

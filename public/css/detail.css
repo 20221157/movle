@@ -1,5 +1,5 @@
 .section-top{
-    background-color:#fedbf4;
+    background-color: #fedbf4;
     align-items: center;
     justify-content: center;
 
@@ -7,14 +7,16 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    padding-bottom: 10px;
 }
 .ThumbnailWrap{
-    width: 65%;
+    width: 90%;
     height: 594px;
     display: flex;
     border-radius: 3px;
-    background-color:white;
-    justify-content: center;
+    background-color:#fedbf4;
+    justify-content: flex-start;
+    padding-right: 10px;
 }
 .section-bottom{
     min-width: 400px;
@@ -29,37 +31,35 @@
 }
 
 .movie-Thumbnail{
-    
-    display: flex;
+    display: flex; 
     justify-content: center;
     background-size:cover;
     height: 594px;
     width: 420px;
     overflow: hidden;
 }
+.center {
+	justify-content: center;
+}
 .summaryWrap{
-    position: absolute;
-    width: 100%;
+    height: 100px;
     bottom: 0;
-
+    justify-content: flex-start;
 }
 .summary{
     width: 300px;
-    height:230px;
+    height:200px;
     position: relative;
     left: 262px;
     display: flex;
 }
 #nav-summary{
-    background-color: rgba(240, 248, 255, 0.232);
     bottom: 0;
-    left: 260px;
-    
 }
 #summary-detail{
-    
     list-style-type: none;
     text-decoration: none;
+    padding-left: 25px;
 }
 #summary-detail li{
     
@@ -85,17 +85,21 @@
 .poster-section{
     display: block;
     width:280px;
-    height: 500px;
+    height: 594px;
     border-right: 1px solid gray;
 }
 .info-section{
-    display: block;
     flex: 1 1 0%;
     right: 0;
     width: 600px;
     top: 0;
-    height: 500px; 
-    
+    height: 594px; 
+   bottom: 0; 
+}
+.sort {
+   flex-direction: column;
+   align-items: flex-start; /* 왼쪽 정렬 */
+   width: 100%; /* 필요한 경우 조정 */
 }
 .poster{
     position: relative;
@@ -111,13 +115,13 @@
     height: 297px;
     object-fit: cover;
 }
-
+.title {
+	padding-left: 20px;
+}
 
 .star-Rating{
-    grid-column: 1;
     width: 100%;
     height: 100px;
-    display: block;
 }
 .rating{
     align-items: center;
@@ -126,30 +130,29 @@
     display: flex;
 }
 .func{
-    -webkit-box-pack: justify;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     height: 100px;
-    border-top: 1px solid rgb(217, 217, 217);
-    border-bottom: 1px solid rgb(217, 217, 217);
     margin: 0px auto;
 }
 .movieFunc{
-    height: 200px;
-    display: block;
-    flex-direction: column;
-    align-items: center;
+    display: flex;
+    height: 100px;
+    align-items: flex-start;
     width:100%;
+    justify-content: space-between;
 }
 .movie-plot{
     width: 100%;
-
+    padding-left: 20px;
+    padding-top: 30px;
 }
 .movie-plot a{
     display: inline-block;
     margin: 7px;
+    font-size: 19px;
 }
 .func button{
     cursor: pointer;
@@ -194,18 +197,18 @@
 }
 .appearanceWrap{
     display: block;
-    width: 90%;
+    width: 100%;
     height: 350px;
 }
 
 .appearanceWrap header{
     height: 50px;
-    width: 100%;
+    width: 95%;
     display: flex;
     align-items: center;
     border-radius: 3px;
     background-color:aliceblue;
-    
+    padding-left: 5%;
 }
 .appearanceWrap header a{
     display: inline-block;
@@ -214,11 +217,10 @@
 #actor{
     height: 310px;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
     list-style-type: none;
-    padding: 0;
-    margin: 0;
+    padding-left: 5%;
+    margin-top: 10px;
+    overflow-x: auto;
 }
 
 .appearanceWrap  ul li {
@@ -226,15 +228,19 @@
     border-radius: 3px;
     margin-left: 3px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.482);
-    width: 23%;
-    height:62px;
-    display: flex;
     align-items: center;
+   margin-right: 10px;
+    height: 280px;
 }
 #actor li a {
     margin-left: 8px;
     display: flex;
     align-items: center;
+}
+.name {
+    padding-top: 8px;
+    font-size: 16px; /* 글자 크기를 16px로 설정 */
+    text-align: center; 
 }
 .comment-section {
     margin-bottom: 20px;
@@ -274,17 +280,20 @@ textarea:focus{
 }
 
 .comment{
-
-    width: 90%;
     display: block;
-
+        width: 100%;
+	    height: 350px;
 }
 .comment header{
+    overflow-x: hidden;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.692);
+    height: 50px;
+    width: 95%;
     display: flex;
     align-items: center;
-    background-color: aliceblue;
-    height: 50px;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.692);
+    border-radius: 3px;
+    background-color:aliceblue;
+    padding-left: 5%;
 }
 
 .comment ul{
