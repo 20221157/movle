@@ -19,6 +19,7 @@ module.exports = (sequelize, Sequelize) => {
         charset: 'utf8mb4',
         collate: 'utf8mb4_unicode_ci',
     });
+    
     return Actor;
 };
 

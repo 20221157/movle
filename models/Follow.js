@@ -32,16 +32,6 @@ module.exports = (sequelize, Sequelize) => {
 		collate: 'utf8mb4_unicode_ci',
 	});
 
-	Follow.associate = (models) => {
-		Follow.belongsTo(models.User, {
-			foreignKey: 'followerId',
-			as: 'Follower'
-		});
-		Follow.belongsTo(models.User, {
-		        foreignKey: 'followingId',
-		        as: 'Following'
-		});
-	};
 
 	return Follow;
 };

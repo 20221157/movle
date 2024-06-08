@@ -1,1 +1,56 @@
-<h1> community </h1>
+<!--	<div>	
+		<div>	
+			<ul>
+				<li><a href="/community">all</a></li>
+				<% boards.forEach(board => { %>
+				<li><a href="/community/<%= board.id %>"><%= board.name %></a></li>
+				<% }); %>
+			</ul>
+		</div>
+<div id="posts">
+    <% posts.forEach(post => { %>
+        <div class="post">
+            <!-- 게시글 작성자의 닉네임 표시 -->
+            <p><strong><%= post.User.nickname %></strong></p>
+            
+            <!-- 게시글 사진 표시 -->
+            <% if (post.photoPath) { %>
+                <img src="<%= post.photoPath %>" alt="게시글 사진">
+            <% } %>
+            
+            <!-- 게시글 내용 표시 (최대 3줄만) -->
+            <p><%= post.content %></p>
+        </div>
+    <% }); %>
+</div>
+-->
+    <div class="container">
+            <div class="post-form">
+                <textarea id="postText" placeholder="Share your thoughts and feeling about Movie or Place " rows="4" style="width: 969px; height: 165px;"></textarea>
+                <input type="file" id="postImages" accept="image/*" multiple>
+                <p id="fileCount"></p>
+                <button onclick="createPost()">Post</button>
+            </div>
+            <div id="postsContainer" class="posts-container"></div>
+            <div id="pagination" class="pagination"></div>
+        </div>
+</div>
+
+
+        <script src="/public/js/commu.js"></script>
+    
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/lightbox-plus-jquery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const nav = document.querySelector('.nav');
+        
+            hamburgerMenu.addEventListener('click', function() {
+                nav.classList.toggle('active');
+            });
+        });
+        
+    </script>

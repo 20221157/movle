@@ -10,7 +10,8 @@ const port = 80,
 	movieController = require('./controllers/movieController'),
 	homeController = require('./controllers/homeController'),
 	userController = require('./controllers/userController');
-	
+	communityController = require('./controllers/communityController');
+
 db.sequelize.sync();
 
 app.use(session({
@@ -49,9 +50,8 @@ app.post('/movie/:id', movieController.getSelect);
 app.get("/place", (req, res) => {
 	res.render("place",{ isLogged: req.isAuthenticated() });
 });
-app.get("/community", userController.requireLogin, (req, res) => {
-	res.render("community");
-});
+app.get("/community", /*userController.requireLogin,*/ communityController.getCommunity);
+app.get("/community/:id", communityController.getPost);
 app.get("/map", (req, res) => {
 	res.render("map",{ isLogged: req.isAuthenticated() });
 });

@@ -4,6 +4,11 @@ module.exports = (sequelize, Sequelize) => {
 	class MovieDirector extends Model {}
 	
 	MovieDirector.init({
+                id: {
+                        type: DataTypes.INTEGER,
+                        autoIncrement: true,
+                        primaryKey: true
+                },
 		MovieId: {
 			type: DataTypes.INTEGER,
 			references: {

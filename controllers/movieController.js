@@ -52,11 +52,10 @@ exports.getSelect = async (req, res) => {
 
 exports.getMovies = async (req, res) => {
   try {
-	  const isLogged = req.isAuthenticated();
     const movies = await db.Movie.findAll();
 
     // 영화 목록을 렌더링할 템플릿에 전달
-    res.render('movie/index', { isLogged, movies });
+    res.render('movie/index', { movies });
   } catch (error) {
     console.error('Error getting movies:', error);
     res.status(500).send('Error getting movies');

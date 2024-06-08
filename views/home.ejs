@@ -1,1 +1,32 @@
-<h1> hompage </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/home.css"> <!-- 외부 CSS 파일 로드 -->
+</head>
+<body>
+    <div class="movie-container">
+	<h1>오늘의 추천 영화</h1>
+        <div class="movie-grid">
+            <% movies.forEach(movie => { %>
+                <div class="movie-block">
+                    <a href="/movie/<%= movie.id %>">
+                        <img src="/images/movies/<%= movie.imagePath %>" alt="<%= movie.title %>">
+                    </a>
+                    <div class="movie-details">
+                        <h2><%= movie.title %></h2>
+                        <!-- Add more details here if needed -->
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+        
+        <% if (loggedIn) { %>
+            <!-- Content to display when logged in -->
+        <% } else { %>
+            <!-- Content to display when not logged in -->
+        <% } %>
+    </div>
+</body>
+</html>

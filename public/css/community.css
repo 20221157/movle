@@ -1,0 +1,346 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+@import 'https://fonts.googleapis.com/css?family=Montserrat:400,700';
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans',Arial,sans-serif;
+  font-size: 15px;
+}
+h1,h2,h3,h4,h5{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+header{width:100%; min-width: 100px;}
+.navbar {border: medium none; float:left; margin-bottom: 0px; width: 100%;  border-radius: 0}
+.top-head{background: #fedbf4; width: 100%; float:left; height: 68px;}
+.top-head h1 {color: #fff; font-size: 40px; font-weight: 600; margin-top: 25px; margin-left: 4%;}
+.top-nav{background: #fedbf4; padding: 0; height: 60px; width: 100%;}
+.top-nav .nav-link {padding-bottom: 0.7rem; padding-top: 0.7rem; }
+.top-nav .navbar-nav .nav-item + .nav-item{margin-left:3px;}
+.navbar-nav{width: 850px; display:block; overflow:visible;}
+.top-nav li {display:inline;}
+.top-nav li a{color: #ffffff; text-transform: uppercase; font-size: 14px; font-weight: 700; padding:0 50px; border-bottom: 2px solid #fff; text-decoration-line: none; }
+.top-nav li a:hover, .top-nav li a:focus, .top-nav li.active a{color: #ff00c3; border-bottom: 2px solid  #ff00c3 }
+.top-nav .form-control{border-color: #fff}
+.top-nav .nav-inline .nav-link{color:white; text-decoration-line: none; float: left; margin-left: 91%; font-weight: 600; }
+.top-nav .profile {color: white; position: absolute; top: 20px; right: 20px; display: block; border:1px solid black; width: 40px; height: 40px; border: none;}
+.top-nav .material-symbols-outlined{font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  font-size: 38px;
+  
+}
+
+
+
+.search-container {
+    height: 23px;
+    width: 250px;
+    background: white;
+    border-radius: 40px;
+    padding: 8px;
+    border: 1px solid #f9deec;
+    margin-left: 0; 
+    margin-top: 0px;
+    
+  }
+.search-txt {
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: #797979;
+  font-size: 16px;
+  line-height: 30px;
+  width: 200px;
+  
+}
+@media(max-width:1100px){
+  .search-btn{
+    display: none;
+  }
+  .search-txt{
+    display: none;
+  }
+  .search-box{
+    display: none;
+  }
+}
+.search-btn {
+  color: #f9deec;
+  float: right;
+  width: 40px;
+  height: 100%;
+  border-radius: 50%;
+  background: white;
+  border: none;
+font-size: 16px;
+justify-content: center;
+align-items: center;
+}
+
+#search {float: right; margin-top: 9px; width: 250px;}
+.search {padding: 3px 0; width: 230px; height: 30px; position: relative; left: 10px; float: left; line-height: 22px;}
+
+.search:hover input, .search input:focus { width: 200px; margin-left: 0px; background: #ffffff;}
+.top-nav .btn {position: absolute;right: 0;top: 4px;border-radius:3px;}
+
+/* footer css */
+footer {
+    background-color: #ffc6ec;
+    width: 100%;
+    padding: 20px 0; /* 상단과 하단의 패딩을 조절하여 높이를 조절합니다. */
+}
+footer .footer-ul i { margin-right:10px;}
+footer p{color: #757575; font-size: 14px;}
+footer p span{color: rgb(230, 95, 198);}
+footer .heading-footer { font-size:21px; font-weight:700; color:rgb(214, 34, 172); margin-bottom:22px;}
+
+
+
+/* 기존 css에서 커뮤니티 보드에 추가된 부분 */
+@media (max-width: 768px) {
+    .top-nav ul.navbar-nav {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      background-color: #fedbf4;
+      width: 100%;
+      padding: 10px 0;
+      border-top: 1px solid #fff;
+    }
+  
+    .top-nav ul.navbar-nav.active {
+      display: block;
+    }
+  
+    .top-nav .nav-item {
+      display: block;
+      text-align: center;
+      margin: 0;
+    }
+  
+    .top-nav .nav-item a {
+      display: block;
+      padding: 10px;
+      border-bottom: 1px solid #fff;
+    }
+  }
+
+  @media (max-width: 1133px) {
+    .top-nav li a{color: #ffffff; 
+      text-transform: uppercase; 
+      font-size: 12px; 
+      font-weight: 700; 
+      padding: 0 15px; 
+      border-bottom: 2px solid #fff; 
+      text-decoration-line: none; }
+
+    .search-container {
+      height: 20px;
+      width: 80px;
+      background: white;
+      border-radius: 40px;
+      padding: 5px;
+      border: 1px solid #f9deec;
+      
+    }
+    
+    .search-txt {
+      border: none;
+      background: none;
+      outline: none;
+      float: left;
+      padding: 0;
+      color: #797979;
+      font-size: 13px;
+      line-height: 30px;
+      width: 200px;
+      
+    }
+    
+    .search-btn {
+      color: rgb(230, 95, 198);
+      float: right;
+      width: 30px;
+      height: 100%;
+      margin-left: 25%;
+      border-radius: 50%;
+      background: white;
+      border:none;
+      font-size: 5px;
+      justify-content: center;
+      align-items: center;
+    }
+    .post-form #postText{
+      width: 528px;
+      height: 170px;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.pagination button {
+    background-color: rgb(214, 214, 214);
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    margin: 0 5px;
+
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background-color: rgba(88, 88, 88, 0.462);
+}
+
+.pagination button.active {
+    background-color: rgba(88, 88, 88, 0.462);
+}
+
+
+.container {
+    width: 80%;
+    height: 700px;
+    margin: 0 auto;
+    padding-top: 40px;
+    flex: 1; /* Flexbox for growing and shrinking */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.timestamp {
+  font-size: 8px; /* 작성 날짜와 시간의 글자 크기 */
+  color: #999; /* 작성 날짜와 시간의 글자 색상 */
+}
+
+.post-form {
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border-radius: 5px;
+   
+}
+
+.post-form textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.post-form input[type="file"] {
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+.post-form button {
+    background-color: rgb(230, 95, 198);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-form button:hover {
+    background-color: #0056b3;
+}
+
+.posts-container {
+    max-height: 600px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.post {
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+.post p{
+  color: #463939;
+}
+
+.post img {
+    max-width: 100%;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+
+.post button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ca5095;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.post button.edit {
+    right: 80px;
+    background-color: #ca509595;
+}
+
+.post button:hover {
+    opacity: 0.8;
+}
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-container img {
+    border-radius: 5px;
+}
+
+.image-container.one img {
+    width: 33%;
+}
+
+.image-container.two img {
+    width: 33%;
+    height: 50%;
+}
+
+.image-container.three img:nth-child(1) {
+    width: 25%;
+}
+
+.image-container.three img:nth-child(n+2) {
+    width: 33%;
+}
+
+.image-container.four img {
+    width: 33%;
+}
+.sideBar{
+	min-width: 250px;
+	width: 260px;
+	height: 100vh;
+	display: flex;
+}

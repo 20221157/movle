@@ -53,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
 		hashField: 'password',
 		saltField: 'salt'
 	});
+
 	return User;
 };
 

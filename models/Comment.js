@@ -71,6 +71,7 @@ module.exports = (sequelize, DataTypes) => {
                 charset: 'utf8mb4',
                 collate: 'utf8mb4_unicode_ci',
 	});
+
 	return Comment;
 }
 
