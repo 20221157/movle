@@ -1,0 +1,21 @@
+<img src="/images/places/<%= place.potoPath %>" alt="<%= place.name %>" style="width: 700px; height: 400px;">
+<h1><%= place.name %></h1>
+<div>
+	<%= place.description %>
+</div>
+<div> <%= place.movieTitle %></div>
+<div><%= place.addressDetails %></div>
+
+<h2>Same Movie</h2>
+<% if (place.similarPlaces && place.similarPlaces.length > 0) { %>
+  <div class="similar-places-container">
+    <% place.similarPlaces.forEach(similarPlace => { %>
+      <div class="similar-place">
+        <img src="/images/places/<%= similarPlace.potoPath %>" alt="<%= similarPlace.name %>" style="width: 200px; height: 100px;">
+        <p><%= similarPlace.name %></p>
+      </div>
+    <% }); %>
+  </div>
+<% } else { %>
+  <p>null</p>
+<% } %>

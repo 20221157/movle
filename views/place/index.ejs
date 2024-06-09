@@ -1,0 +1,14 @@
+<div class>
+    <% if (places && places.length > 0) { %>
+      <% places.forEach(place => { %>
+        <div class="place">
+          <a class="place_a" href="/place/<%= place.id %>">
+            <img src="/images/places/<%= place.potoPath %>" alt="<%= place.name %>" style="width: 400px; height: 300px;">
+            <h2><%= place.name %>: <%= place.movie.title %></h2>
+          </a>
+        </div>
+      <% }); %>
+    <% } else { %>
+    <% } %>
+  </div>
+</div>

@@ -88,9 +88,10 @@ align-items: center;
 .search:hover input, .search input:focus { width: 200px; margin-left: 0px; background: #ffffff;}
 .top-nav .btn {position: absolute;right: 0;top: 4px;border-radius:3px;}
 #map {
-	height: 600px;
+	height: 630px;
 	width: 100%;
 }
+
 #my {
 	text-decoration: none;
 	color: white;
@@ -156,7 +157,7 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 	text-align: center; /* 텍스트 가운데 정렬 */
 }
 
-.movie img {
+.movie img{
 	max-width: 100%; /* 이미지가 컨테이너를 넘어가지 않도록 */
 	height: auto;
 	border-radius: 8px;
@@ -166,7 +167,7 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 	font-size: 1.2em;
 	margin: 10px 0 0;
 }
-.movie_a {
+.movie_a{
 	text-decoration: none; /* 밑줄 제거 */
 	color: inherit; /* 링크의 색상을 부모 요소에서 상속받도록 설정 */
 }

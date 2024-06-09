@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequelize) => {
     class Place extends Model {}
 
     Place.init({
-        Id: {
+        id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
@@ -27,6 +27,14 @@ module.exports = (sequelize, Sequelize) => {
 		allowNull: false,
 		references: {
 			model: 'addresses',
+			key: 'id'
+		}
+	},
+	movieId: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		references: {
+			model: 'movies',
 			key: 'id'
 		}
 	}

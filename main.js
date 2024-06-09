@@ -6,7 +6,9 @@ const port = 80,
 	favicon = require("serve-favicon"),
 	db = require("./models/index"),
 	passport = require("passport"),
-	nodemailer = require('nodemailer');
+	nodemailer = require('nodemailer'),
+	mapController = require('./controllers/mapController'),
+	placeController = require('./controllers/placeController'),
 	movieController = require('./controllers/movieController'),
 	homeController = require('./controllers/homeController'),
 	userController = require('./controllers/userController');
@@ -47,14 +49,18 @@ app.post('/movie', movieController.getSelect);
 app.get('/movie/:id', movieController.getMovieDetails);
 app.post('/movie/:id', movieController.getSelect);
 
-app.get("/place", (req, res) => {
-	res.render("place",{ isLogged: req.isAuthenticated() });
-});
+app.get("/place", placeController.getPlaces);
+app.post('/place', placeController.getSelect);
+app.get('/place/:id', placeController.getPlaceDetails);
+app.post('/place/:id', placeController.getSelect);
+
 app.get("/community", /*userController.requireLogin,*/ communityController.getCommunity);
 app.get("/community/:id", communityController.getPost);
-app.get("/map", (req, res) => {
-	res.render("map",{ isLogged: req.isAuthenticated() });
-});
+
+app.get("/map", mapController.getMap);
+//app.post('/map', mapController.geocodeAddress);
+
+
 app.get("/mypage", userController.requireLogin, userController.renderMyPage);
 app.get("/login", userController.login);
 app.post("/login", userController.authenticate);
@@ -67,6 +73,8 @@ app.get("/forgotpassword", (req,res) => {
 	res.render("forgotpassword", {layout:false});
 });
 app.post("/forgotpassword", userController.updateAndSend);
+
+
 
 app.listen(port);
 
