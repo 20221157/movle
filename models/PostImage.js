@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 			autoIncrement: true
 		},
 		imagePath: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.STRING,
 			allowNull: false,
 		},
 		postId: {

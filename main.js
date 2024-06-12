@@ -1,5 +1,6 @@
 const port = 80,
 	express = require("express"),
+	multer = require('multer'),
 	app = express(),
 	session = require('express-session'),
 	layouts = require("express-ejs-layouts"),
@@ -12,6 +13,7 @@ const port = 80,
 	movieController = require('./controllers/movieController'),
 	homeController = require('./controllers/homeController'),
 	userController = require('./controllers/userController'),
+	upload = require('./controllers/multerConfig');
 	communityController = require('./controllers/communityController');
 
 db.sequelize.sync();
@@ -56,12 +58,12 @@ app.post('/place/:id', placeController.getSelect);
 
 app.get("/community", userController.requireLogin, communityController.getCommunity);
 app.get("/community/:id", userController.requireLogin, communityController.getPost);
-app.post("/community/:id", userController.requireLogin, communityController.createPost, communityController.uploadImage);
+app.post("/community/:id", userController.requireLogin, upload, communityController.createPost);
 
 app.delete("/post/:id", communityController.deletePost);
 app.get("/post/:id");
 
-app.post("submitPlace", userController.requireLogin, communityController.creatPlace, communityController.createPost);
+app.post("submitPlace", userController.requireLogin, upload, communityController.creatPlace, communityController.createPost);
 app.get("/map", mapController.getMap);
 //app.post('/map', mapController.getAddress);
 

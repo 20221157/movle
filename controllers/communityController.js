@@ -1,4 +1,5 @@
 const db = require('../models'),
+	multer = require('multer'),
 	{ v4: uuidv4 } = require('uuid'),
 	{ body, validationResult } = require('express-validator');
 	Board = db.Board,
@@ -52,22 +53,30 @@ module.exports = {
         		res.status(500).send('Internal server error');
     		}
 	},
-	createPost: async (req, res, next) => {
+	createPost: async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(400).json({ errors: errors.array() });
 		}
+		console.log(req.files);
 		const boards = await Board.findAll();	
-		const { text, images } = req.body;
+		const { text } = req.body;
 		const userId = req.user.id;
 		const boardId = req.params.id;
 		try {
 			const post = await db.Post.create({ content:text, userId: userId, boardId: boardId });
 			if (req.files && req.files.length > 0) {
-				req.post = post;
-			        next(); // 이미지 파일이 있으면 다음 미들웨어로 이동
-			} else {
+				      for (const file of req.files) {
+					      const path = file.filename;
+					      const postId= post.id;
+					      await db.PostImage.create({postId: postId, imagePath: path});
+                                      }
+				
+			}
 				const posts = await Post.findAll({
+					where: {
+						boardId: boardId
+					},
                                 include: [
                                         {
                                                 model: User,
@@ -84,7 +93,7 @@ module.exports = {
                         });
 
                         res.render("community", { boards, posts, userId });
-			}
+			
 
 		}catch (error) {
 			console.error(error);
@@ -139,7 +148,7 @@ module.exports = {
                 if (!req.files || Object.keys(req.files).length === 0) {
                     return;
                 }
-
+		 const userId = req.user.id;
 		const post = req.post;
 		const postId = post.id;
                 const imageFiles = req.files.images; // 클라이언트에서 이미지 파일 필드명이 'image'로 전달됨
@@ -160,13 +169,14 @@ module.exports = {
 			await imageFile.mv(imagePath); 
 		}
 
-		res.render('community', { boards, posts});
+		res.render('community', { boards, posts, userId});
             } catch (error) {
                 console.error(error);
                 res.status(500).send('Internal Server Error');
             }
         },
 	creatPlace: async(req, res, nest) => {
+		console.log('aa');
 		try {
 	        const { movieTitle, city, district, road_name, building_number, text, images } = req.body;
 		let placeAddress = `${city} ${district} ${road_name}`;

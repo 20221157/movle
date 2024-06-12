@@ -11,7 +11,7 @@
 
 
 	<div class="container">
-	   <form action='' method='post'  onsubmit="return validateForm()"> 
+	   <form action='' method='post' enctype="multipart/form-data"  onsubmit="return validateForm()"> 
 		<div class="post-form">
 			<input type="text" id="movieTitle" name="movieTitle" placeholder="Enter movie title">
 			<input type="text" id="placeAddress" name="name" placeholder="장소이름" >
@@ -132,12 +132,13 @@ function validateForm() {
         }
 
 	if (isPlaceBoard()) {
-        var images = document.getElementById('postImages').files;
-        if (images.length === 0) {
-            alert('Please upload at least one image for a place'); // 에러 메시지를 표시하고
-            return false; // 제출을 막음
-        }
-    }
+        	var images = document.getElementById('postImages').files;
+        	if (images.length === 0) {
+            		alert('Please upload at least one image for a place'); // 에러 메시지를 표시하고
+            		return false; // 제출을 막음
+		}
+    	}
+
         return true; // 그렇지 않으면 제출을 진행
     }
 
