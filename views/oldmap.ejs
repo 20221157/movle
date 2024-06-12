@@ -1,0 +1,31 @@
+
+<div id="map"></div>
+
+<script>
+        function initMap() {
+            var initialLat = 37.591, initialLng = 127.017;
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: initialLat, lng: initialLng },
+                zoom: 15,
+            });
+
+            // JavaScript 변수로 전달된 addressData를 사용하여 마커를 추가
+            <% mapData.forEach(address => { %>
+                var marker = new google.maps.Marker({
+                    position: { lat: <%= address.latitude %>, lng: <%= address.longitude %> },
+                    map: map,
+                    title: '<%= address.addressInfo.full_address %>'
+                });
+
+            	<% }); %>
+	
+	}
+
+
+
+</script>
+
+
+  <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS7TvY3zbDbMsQIm9dVQsg9u94tq4DAds&callback=initMap&v=weekly&libraries=marker"
+                                                                                                                   defer          ></script>

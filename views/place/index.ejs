@@ -1,8 +1,9 @@
-<div class>
+<fieldset class= "rate"></fieldset>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); grid-auto-rows: auto; grid-gap: 20px;">
     <% if (places && places.length > 0) { %>
       <% places.forEach(place => { %>
-        <div class="place">
-          <a class="place_a" href="/place/<%= place.id %>">
+        <div class="movie" style="width: 450px; height: 350px;">
+          <a class="movie_a" href="/place/<%= place.id %>">
             <img src="/images/places/<%= place.potoPath %>" alt="<%= place.name %>" style="width: 400px; height: 300px;">
             <h2><%= place.name %>: <%= place.movie.title %></h2>
           </a>

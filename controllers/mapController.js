@@ -38,7 +38,7 @@ module.exports = {
 	    for (const address of addresses) {
 	      const { latitude, longitude } = await geocodeAddress(address.full_address);
 	      const places = await db.Place.findAll({ where: { addressId: address.id } });
-	      const photoPaths = places.map(place => place.photoPath);
+	      const photoPaths = places.map(place => place.potoPath);
 
 	      addressData.push({ latitude, longitude, addressInfo: address, photoPaths: photoPaths });
 	    }

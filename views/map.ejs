@@ -9,19 +9,35 @@
                 zoom: 15,
             });
 
-            // JavaScript 변수로 전달된 addressData를 사용하여 마커를 추가
-            <% mapData.forEach(address => { %>
-                var marker = new google.maps.Marker({
-                    position: { lat: <%= address.latitude %>, lng: <%= address.longitude %> },
-                    map: map,
-                    title: '<%= address.addressInfo.full_address %>'
-                });
+	// JavaScript 변수로 전달된 addressData를 사용하여 마커를 추가
+            <% if (typeof mapData !== 'undefined' && Array.isArray(mapData)) { %>
+                <% mapData.forEach(address => { %>
+                    var marker = new google.maps.Marker({
+                        position: { lat: <%= address.latitude %>, lng: <%= address.longitude %> },
+                        map: map,
+                        title: '<%= address.addressInfo.full_address %>'
+                    });
 
-            	<% }); %>
-	
-	}
+                    // infoWindow 설정
+                    var infoWindowContent = `<div>
+                        <h3><%= address.addressInfo.full_address %></h3>
+                        <img src="/images/places/<%= address.photoPaths %>" alt="Place Image" style="width:200px;height:auto;">
+                    </div>`;
 
+                    var infoWindow = new google.maps.InfoWindow();
 
+                    // 마커 클릭 이벤트 추가
+                    marker.addListener('click', (function(marker, infoWindowContent) {
+                        return function() {
+                            infoWindow.setContent(infoWindowContent);
+                            infoWindow.open(map, marker);
+                        };
+                    })(marker, infoWindowContent));
+                <% }); %>
+            <% } else { %>
+                console.error('mapData is undefined or not an array.');
+            <% } %>
+        }
 
 </script>
 

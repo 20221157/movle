@@ -11,6 +11,16 @@ const main = require('./tmdb');
 const createNewPlace = require('../addPlace');
 
 module.exports = {
+        deletePost: async (req, res) => {
+                 try {
+                         const postId = req.params.id;
+                         await Post.findByIdAndDelete(postId);
+                         res.status(200).json({ message: '게시물이 성공적으로 삭제되었습니다.' });
+                 }catch {
+                         res.status(500).json({ error: '게시물 삭제 중 오류가 발생했습니다.' });
+                 }
+        },
+
 	getCommunity: async (req, res) => {
 		try {
 			const userId = req.user.id;

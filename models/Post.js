@@ -1,6 +1,22 @@
 const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	class Post extends Model {}
+	class Post extends Model {
+		static async findByIdAndDelete(id) {
+			try {
+				let post = await Post.findByPk(id);
+				if (post) {
+					post = await Post.destroy({
+						where: {id: id}
+					});
+				}
+				return post;
+			}catch(err) {
+				console.log(err);
+			}
+		}
+
+
+	};
 	Post.init({
 		id: {
 			type: DataTypes.INTEGER,

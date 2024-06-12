@@ -13,13 +13,13 @@
 	<div class="container">
 	   <form action='' method='post'  onsubmit="return validateForm()"> 
 		<div class="post-form">
-			<input type="text" id="movieTitle" name="movieTitle" placeholder="Enter movie title" required>
-			<input type="text" id="placeAddress" name="name" placeholder="장소이름" required>
+			<input type="text" id="movieTitle" name="movieTitle" placeholder="Enter movie title">
+			<input type="text" id="placeAddress" name="name" placeholder="장소이름" >
         	        <!-- 주소 입력칸 -->
 			<div id="placeAddress">
-	                <input type="text" id="placeAddress" name="city" placeholder="시/도" required>
-			<input type="text" id="placeAddress" name="district" placeholder="시/군/구" required>
-			<input type="text" id="placeAddress" name="road_name" placeholder="도로명" required>
+	                <input type="text" id="placeAddress" name="city" placeholder="시/도">
+			<input type="text" id="placeAddress" name="district" placeholder="시/군/구" >
+			<input type="text" id="placeAddress" name="road_name" placeholder="도로명" >
 			<input type="text" id="placeAddress" name="building_number" placeholder="건물번호(선택)">
 			</div>
                 	<textarea id="postText" name="text" placeholder="Share your thoughts and feeling about Movie or Place " rows="4" style="width: 969px; height: 165px;"></textarea>
@@ -48,7 +48,7 @@
 	            <% } %>
 		<% if (userId === post.userId) { %>
 		    	<button class="edit">Edit</button>
-		    	<button>Delete</button>
+			<button class="delete" onclick="deletePost(<%= post.id %>)">Delete</button>
 		<% } %>
 		<% const date = new Date(post.updatedAt); %>
         	<% const year = date.getFullYear(); %>
@@ -104,9 +104,15 @@ function togglePostForm() {
                     document.getElementById('movieTitle').style.display = 'block';
                     document.getElementById('placeAddress').style.display = 'block';
 		    document.getElementById('createPostForm').action = '/submitPlace';
+	   	    document.querySelectorAll('#placeAddress input').forEach(input => {
+                	input.style.display = 'block';
+                    });
                 } else {
                     document.getElementById('movieTitle').style.display = 'none';
                     document.getElementById('placeAddress').style.display = 'none';
+		    document.querySelectorAll('#placeAddress input').forEach(input => {
+                	input.style.display = 'none';
+            	    });
                 }
 		isPostFormVisible = true;
         } else {
@@ -169,5 +175,21 @@ function isPlaceBoard() {
             var boardId = url.split('/').pop();
             return boardId == 5; // 느슨한 비교 사용
         }
-    
+  
+
+function deletePost(postId) {
+    fetch('/post/' + postId, {
+        method: 'DELETE' // DELETE 요청을 보냄
+    }).then(response => {
+        if (response.ok) {
+            // 삭제가 성공하면 페이지를 다시 로드하여 변경된 데이터를 반영
+            window.location.reload();
+            alert("게시물이 성공적으로 삭제되었습니다.");
+        } else {
+            console.error('Failed to delete post.');
+        }
+    }).catch(error => {
+        console.error('Error deleting post:', error);
+    });
+} 
 </script>

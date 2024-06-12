@@ -150,7 +150,6 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 	gap: 20px; /* 영화 사이의 간격 */
 	justify-content: center; /* 가운데 정렬 */
 }
-
 .movie {
 	flex: 1 0 21%; /* 각 영화의 기본 너비와 최소 너비 설정 */
 	box-sizing: border-box;

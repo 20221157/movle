@@ -57,9 +57,13 @@ app.post('/place/:id', placeController.getSelect);
 app.get("/community", userController.requireLogin, communityController.getCommunity);
 app.get("/community/:id", userController.requireLogin, communityController.getPost);
 app.post("/community/:id", userController.requireLogin, communityController.createPost, communityController.uploadImage);
+
+app.delete("/post/:id", communityController.deletePost);
+app.get("/post/:id");
+
 app.post("submitPlace", userController.requireLogin, communityController.creatPlace, communityController.createPost);
 app.get("/map", mapController.getMap);
-//app.post('/map', mapController.geocodeAddress);
+//app.post('/map', mapController.getAddress);
 
 app.get("/mypage", userController.requireLogin, userController.renderMyPage);
 app.get("/login", userController.login);
