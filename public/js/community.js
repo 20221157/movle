@@ -11,11 +11,10 @@ function createPost() {
     const text = document.getElementById('postText').value;
     const images = document.getElementById('postImages').files;
 
-    if (!text && images.length === 0) {
-        alert('Please enter some text or select images');
+    if (!text) {
+        alert('Please enter some text');
         return;
     }
-
     const postContainer = document.createElement('div');
     postContainer.className = 'post';
 
@@ -26,7 +25,7 @@ function createPost() {
     if (images.length > 0) {
         const imageContainer = document.createElement('div');
         imageContainer.className = 'image-container';
-        
+/*        
         if (images.length === 1) {
             imageContainer.classList.add('one');
         } else if (images.length === 2) {
@@ -36,8 +35,8 @@ function createPost() {
         } else if (images.length === 4) {
             imageContainer.classList.add('four');
         }
-
-        for (let i = 0; i < Math.min(images.length, 4); i++) {
+*/
+        for (let i = 0; i < images.length; i++) {
             const imgElement = document.createElement('img');
             imgElement.src = URL.createObjectURL(images[i]);
             imageContainer.appendChild(imgElement);
@@ -130,5 +129,32 @@ function displayPagination() {
     }
 }
 
+
+
+function getBoardIdFromPath() {
+    const path = window.location.pathname;
+    const parts = path.split('/');
+    const boardId = parts.pop();
+    return boardId;
+}
+
+// 메뉴 항목에 색상을 적용하는 함수
+function highlightMenuItem() {
+    const boardId = getBoardIdFromPath();
+    const menuItems = document.querySelectorAll('.sidebar .board li a');
+
+    menuItems.forEach(item => {
+        const href = item.getAttribute('href');
+        const itemId = href.split('/').pop();
+
+        if ((boardId && itemId === boardId) || (!boardId && itemId === 'community')) {
+            item.style.color = '#ff00c3'; // 현재 경로와 일치하는 경우
+        } else {
+            item.style.color = 'black'; // 일치하지 않는 경우
+        }
+    });
+}
+
 // Initial display
 displayPosts();
+

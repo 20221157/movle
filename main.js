@@ -11,7 +11,7 @@ const port = 80,
 	placeController = require('./controllers/placeController'),
 	movieController = require('./controllers/movieController'),
 	homeController = require('./controllers/homeController'),
-	userController = require('./controllers/userController');
+	userController = require('./controllers/userController'),
 	communityController = require('./controllers/communityController');
 
 db.sequelize.sync();
@@ -54,12 +54,12 @@ app.post('/place', placeController.getSelect);
 app.get('/place/:id', placeController.getPlaceDetails);
 app.post('/place/:id', placeController.getSelect);
 
-app.get("/community", /*userController.requireLogin,*/ communityController.getCommunity);
-app.get("/community/:id", communityController.getPost);
-
+app.get("/community", userController.requireLogin, communityController.getCommunity);
+app.get("/community/:id", userController.requireLogin, communityController.getPost);
+app.post("/community/:id", userController.requireLogin, communityController.createPost, communityController.uploadImage);
+app.post("submitPlace", userController.requireLogin, communityController.creatPlace, communityController.createPost);
 app.get("/map", mapController.getMap);
 //app.post('/map', mapController.geocodeAddress);
-
 
 app.get("/mypage", userController.requireLogin, userController.renderMyPage);
 app.get("/login", userController.login);

@@ -1,39 +1,31 @@
 const { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	class Post extends Model {}
-	Post.init({
+	class PostImage extends Model {}
+	PostImage.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		content: {
-			type: DataTypes.TEXT,
-			allowNull: false
+		imagePath: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
 		},
-		boardId: {
+		postId: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			references: {
-				model: 'boards',
-				key: 'id'
-			}
-		},
-		userId: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			references: {
-				model: 'users',
+				model: 'posts',
 				key: 'id'
 			}
 		}
 	},{
 		sequelize,
-                modelName: 'post',
+                modelName: 'PostImage',
                 charset: 'utf8mb4',
                 collate: 'utf8mb4_unicode_ci'
 	});
 
-	return Post;
+	return PostImage;
 };
 

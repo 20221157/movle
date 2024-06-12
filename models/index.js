@@ -21,7 +21,7 @@ db.Director = require('./Director')(sequelize, Sequelize);
 db.Actor = require('./Actor')(sequelize, Sequelize);
 db.Address = require('./Address')(sequelize, Sequelize);
 db.Bookmark = require('./Bookmark')(sequelize, Sequelize);
-
+db.PostImage = require('./PostImage')(sequelize, Sequelize);
 db.Follow = require('./Follow')(sequelize, Sequelize);
 //db.MoviePlace = require('./MoviePlace')(sequelize, Sequelize);
 db.MovieGenre = require('./MovieGenre')(sequelize, Sequelize);
@@ -30,11 +30,17 @@ db.MovieActor = require('./MovieActor')(sequelize, Sequelize);
 
 db.Actor.belongsToMany(db.Movie, { through: 'MovieActor', foreignKey: 'ActorId' });
 db.Movie.belongsToMany(db.Actor, { through: 'MovieActor', foreignKey: 'MovieId' });
+
 db.Director.belongsToMany(db.Movie, { through: 'MovieDirector', foreignKey: 'DirectorId' });
 db.Movie.belongsToMany(db.Director, { through: 'MovieDirector', foreignKey: 'MovieId' });
 
 db.Genre.belongsToMany(db.Movie, { through: 'MovieGenre', foreignKey: 'genreId', as: 'movies' });
 db.Movie.belongsToMany(db.Genre, { through: 'MovieGenre', foreignKey: 'movieId', as: 'genres' });
+
+db.Post.hasMany(db.PostImage);
+db.PostImage.belongsTo(db.Post);
+
+
 
 //db.Place.belongsToMany(db.Movie, { as: 'RelatedMovies', through: 'MoviePlace', foreignKey: 'placeId' });
 //db.Movie.belongsToMany(db.Place, { as: 'RelatedPlaces', through: 'MoviePlace', foreignKey: 'movieId' });

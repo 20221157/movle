@@ -64,7 +64,7 @@ exports.getMovies = async (req, res) => {
 
 exports.getMovieDetails = async (req, res) => {
   const movieId = req.params.id;
-  let userId; //userId를 movie page에 넣어주면 클라이언트에서 좋아요,북마크,코멘트 할 때 userId를 서버에보내줄 것임
+  
   try {
 	  const isLogged = req.isAuthenticated();
     const movie = await db.Movie.findByPk(movieId, {
@@ -89,14 +89,9 @@ exports.getMovieDetails = async (req, res) => {
     if (!movie) {
       return res.status(404).send('Movie not found');
     }
-    if(req.isAuthenticated()){ //userId 초기화 : 로그인 여부 확인
-        userId = req.user.dataValues.id;
-    } else{
-     userId = undefined; // 
-    }
 
     // 영화 상세 정보를 렌더링할 템플릿에 전달
-    res.render('movie/detail',{ isLogged, userId,movie});
+    res.render('movie/detail',{ isLogged, movie});
   } catch (error) {
     console.error('Error getting movie details:', error);
     res.status(500).send('Error getting movie details');

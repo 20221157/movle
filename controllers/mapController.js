@@ -9,13 +9,12 @@ async function geocodeAddress(address) {
 
         // API 요청을 보냅니다.
         const response = await fetch(apiUrl);
-        const data = await response.json();
-
-        // 지오코딩 결과에서 위도와 경도를 추출합니다.
+	const data = await response.json();
+	    console.log(data);
+	// 지오코딩 결과에서 위도와 경도를 추출합니다.
         const location = data.results[0].geometry.location;
         const latitude = location.lat;
         const longitude = location.lng;
-
         // 좌표를 반환합니다.
         return { latitude, longitude };
     } catch (error) {

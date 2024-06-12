@@ -1,37 +1,70 @@
-<!--	<div>	
-		<div>	
-			<ul>
-				<li><a href="/community">all</a></li>
-				<% boards.forEach(board => { %>
-				<li><a href="/community/<%= board.id %>"><%= board.name %></a></li>
-				<% }); %>
-			</ul>
-		</div>
-<div id="posts">
-    <% posts.forEach(post => { %>
-        <div class="post">
-            <!-- 게시글 작성자의 닉네임 표시 -->
-            <p><strong><%= post.User.nickname %></strong></p>
-            
-            <!-- 게시글 사진 표시 -->
-            <% if (post.photoPath) { %>
-                <img src="<%= post.photoPath %>" alt="게시글 사진">
-            <% } %>
-            
-            <!-- 게시글 내용 표시 (최대 3줄만) -->
-            <p><%= post.content %></p>
-        </div>
-    <% }); %>
-</div>
--->
-    <div class="container">
-            <div class="post-form">
-                <textarea id="postText" placeholder="Share your thoughts and feeling about Movie or Place " rows="4" style="width: 969px; height: 165px;"></textarea>
-                <input type="file" id="postImages" accept="image/*" multiple>
-                <p id="fileCount"></p>
-                <button onclick="createPost()">Post</button>
-            </div>
-            <div id="postsContainer" class="posts-container"></div>
+<div class  = "postBoard">	
+        <div class="sidebar">
+                <ul class = "board">
+                        <li><a href="/community">all</a></li>
+                        <% boards.forEach(board => { %>
+                        <li><a href="/community/<%= board.id %>"><%= board.name %></a></li>
+                        <% }); %>
+                </ul>
+		<button class="post-button" onclick="togglePostForm()">Add</button>
+        </div>	
+
+
+	<div class="container">
+	   <form action='' method='post'  onsubmit="return validateForm()"> 
+		<div class="post-form">
+			<input type="text" id="movieTitle" name="movieTitle" placeholder="Enter movie title" required>
+			<input type="text" id="placeAddress" name="name" placeholder="장소이름" required>
+        	        <!-- 주소 입력칸 -->
+			<div id="placeAddress">
+	                <input type="text" id="placeAddress" name="city" placeholder="시/도" required>
+			<input type="text" id="placeAddress" name="district" placeholder="시/군/구" required>
+			<input type="text" id="placeAddress" name="road_name" placeholder="도로명" required>
+			<input type="text" id="placeAddress" name="building_number" placeholder="건물번호(선택)">
+			</div>
+                	<textarea id="postText" name="text" placeholder="Share your thoughts and feeling about Movie or Place " rows="4" style="width: 969px; height: 165px;"></textarea>
+                	<input type="file" name="images" id="postImages" accept="image/*" multiple>
+                	<div id="error-message" style="color: red; display: none;">최대 4개의 이미지까지만 업로드할 수 있습니다.</div>
+                	<div id="error-message2" style="color: red; display: none;">1개의 이미지만 업로드할 수 있습니다.</div>
+			<p id="fileCount"></p>
+                	<button type="submit">Post</button>
+            	</div>
+	   </form id="createPostForm>
+
+	    <div id = "postsContainer" class="posts-container">
+	    <div id="posts">
+	    <% posts.forEach(post => { %>
+	        <div class="post">
+	            <!-- 게시글 작성자의 닉네임 표시 -->
+	            <p><strong><%= post.user.nickname %></strong></p>
+		    <p><%= post.content %></p>
+
+	            <% if (post.PostImages && post.PostImages.length > 0) { %>
+	                <div class="image-container">
+	                    <% post.PostImages.forEach(image => { %>
+	                        <img src="/images/posts/<%= image.imagePath %>" alt="unknown">
+	                    <% }); %>
+	                </div>
+	            <% } %>
+		<% if (userId === post.userId) { %>
+		    	<button class="edit">Edit</button>
+		    	<button>Delete</button>
+		<% } %>
+		<% const date = new Date(post.updatedAt); %>
+        	<% const year = date.getFullYear(); %>
+	        <% const month = (1 + date.getMonth()).toString().padStart(2, '0'); %>
+        	<% const day = date.getDate().toString().padStart(2, '0'); %>
+	        <% const hour = date.getHours().toString().padStart(2, '0'); %>
+        	<% const minute = date.getMinutes().toString().padStart(2, '0'); %>
+	        <% const second = date.getSeconds().toString().padStart(2, '0'); %>
+        	<% const ampm = hour >= 12 ? '오후' : '오전'; %>
+        	<% const formattedDate = `${year}.${month}.${day}.${ampm} ${hour}:${minute}:${second}`; %>
+
+	            <p>Created: <%= formattedDate %></p>
+	        </div>
+	    <% }); %>
+	    </div>
+            <!--<div id="postsContainer" class="posts-container"></div>-->
             <div id="pagination" class="pagination"></div>
         </div>
 </div>
@@ -50,7 +83,91 @@
         
             hamburgerMenu.addEventListener('click', function() {
                 nav.classList.toggle('active');
-            });
+
+	        });
+
         });
-        
-    </script>
+       document.addEventListener('DOMContentLoaded', highlightMenuItem);
+document.addEventListener('DOMContentLoaded', function() {
+	if (isBoardSelected()) {
+		document.querySelector('.post-button').style.display = 'block';
+	} else {
+		document.querySelector('.post-button').style.display = 'none';
+	}
+});
+
+let isPostFormVisible = false;
+function togglePostForm() {
+        if (!isPostFormVisible) {
+        	document.querySelector('.post-form').style.display = 'block';
+                if (isPlaceBoard()) {
+                    document.getElementById('movieTitle').style.display = 'block';
+                    document.getElementById('placeAddress').style.display = 'block';
+		    document.getElementById('createPostForm').action = '/submitPlace';
+                } else {
+                    document.getElementById('movieTitle').style.display = 'none';
+                    document.getElementById('placeAddress').style.display = 'none';
+                }
+		isPostFormVisible = true;
+        } else {
+            // 게시판이 선택되어 있지 않으면 게시글 작성 부분을 숨깁니다.
+            document.querySelector('.post-form').style.display = 'none';
+	    isPostFormVisible = false;
+        }
+    };
+
+
+
+function validateForm() {
+        var text = document.getElementById('postText').value.trim(); // 텍스트 필드의 값을 가져와서 공백을 제거함
+        if (!text) { // 텍스트 필드가 비어있으면
+            alert('Please enter some text'); // 에러 메시지를 표시하고
+            return false; // 제출을 막음
+        }
+
+	if (isPlaceBoard()) {
+        var images = document.getElementById('postImages').files;
+        if (images.length === 0) {
+            alert('Please upload at least one image for a place'); // 에러 메시지를 표시하고
+            return false; // 제출을 막음
+        }
+    }
+        return true; // 그렇지 않으면 제출을 진행
+    }
+
+
+document.getElementById('postImages').addEventListener('change', function() {
+        var files = this.files;
+	var maxFiles = isPlaceBoard() ? 1 : 4;
+	if (files.length > maxFiles) {
+		if (maxFiles === 4) {
+        		document.getElementById('error-message').style.display = 'block';
+	        	document.getElementById('error-message2').style.display = 'none';
+    		} else {
+        		document.getElementById('error-message').style.display = 'none';
+	        	document.getElementById('error-message2').style.display = 'block';
+    		}
+            	this.value = ''; // 파일 입력 초기화
+        } else {
+            // 파일 개수가 허용 범위 이내인 경우
+            document.getElementById('error-message').style.display = 'none';
+	    document.getElementById('error-message2').style.display = 'none';
+        }
+    });
+function isBoardSelected() {
+        // 현재 URL에서 게시판 ID를 가져옵니다.
+        var url = window.location.href;
+        var boardId = url.split('/').pop();
+
+        // 게시판 ID가 DB에서 가져온 게시판 ID와 일치하면 선택된 것으로 간주합니다.
+        // URL의 마지막 부분이 숫자인지 확인하여 게시판 ID인지 판단합니다.
+        return /^\d+$/.test(boardId);
+    }
+
+function isPlaceBoard() {
+            var url = window.location.href;
+            var boardId = url.split('/').pop();
+            return boardId == 5; // 느슨한 비교 사용
+        }
+    
+</script>

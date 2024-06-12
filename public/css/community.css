@@ -180,7 +180,7 @@ footer .heading-footer { font-size:21px; font-weight:700; color:rgb(214, 34, 172
       width: 528px;
       height: 170px;
     }
-  }
+}
 
   .pagination {
     display: flex;
@@ -229,9 +229,56 @@ footer .heading-footer { font-size:21px; font-weight:700; color:rgb(214, 34, 172
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     border-radius: 5px;
-   
+    display: none;
+}
+.post-button {
+	bottom: 0;
+	display: none;
+}
+.postBoard {
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        border-radius: 5px;
+        position: relative;
+	display: flex;
+}
+.sidebar {
+	justify-content: center;          
+	width: 150px;
+	padding: 20px;
+	margin-top: 40px;
+	padding-left: 50px;
+}
+.board {
+        display: flex;
+        flex-direction: column; /* 목록을 가로로 정렬 */
+        list-style-type: none;
+        padding: 0;
+	justify-content: center;
+}
+.board li a {
+	text-transform: uppercase;
+	font-size: 16px;
+	text-decoration: none;
+	transition: color 0.3s;
+	justify-content: center; /* 가로 가운데 정렬 */
+	align-items: center
+}
+.board li a:hover {
+    color:  #ff00c3; /* 호버 시 텍스트 색상을 빨간색으로 변경 */
 }
 
+.board li {
+	margin-bottom: 10px; /* 각 항목 사이의 간격 조정 */
+}
+
+.board
+{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 .post-form textarea {
     width: 100%;
     border: 1px solid #ccc;

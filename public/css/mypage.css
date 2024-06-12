@@ -1,3 +1,31 @@
+.logout{
+    width:100%;
+    height: 30px;
+}
+.logout a {
+    font-size: 17px;
+    text-decoration: none;
+    font-color: black;
+}
+.logout a:active{
+        outline: none;
+}
+#goHome {
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+    width: 35px;
+    height: 35px;
+    background-color: #f9deec56;
+    border-radius: 4px;
+}
+#a-logout{
+    cursor: pointer;
+    margin-top: 10px;
+    position: absolute;
+    right: 40px;
+    line-height: 50%;
+}
 fieldset {
     border: none;
 }

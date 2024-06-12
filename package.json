@@ -19,6 +19,7 @@
     "express-ejs-layouts": "^2.5.1",
     "express-flash": "^0.0.2",
     "express-session": "^1.18.0",
+    "express-validator": "^7.1.0",
     "http-status-code": "^2.1.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.8",
@@ -30,6 +31,7 @@
     "sequelize": "^6.37.3",
     "serve-favicon": "^2.5.0",
     "sqlite3": "^5.1.7",
-    "transliterate": "^1.0.1"
+    "transliterate": "^1.0.1",
+    "uuid": "^10.0.0"
   }
 }
