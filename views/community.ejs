@@ -15,19 +15,20 @@
 	   <form action='' method='post' enctype="multipart/form-data"  onsubmit="return validateForm()"> 
 		<div class="post-form">
 			<input type="text" id="movieTitle" name="movieTitle" placeholder="Enter movie title">
-			<input type="text" id="placeAddress" name="name" placeholder="장소이름" >
+			<input type="text" id="placeName" name="name" placeholder="장소이름" >
         	        <!-- 주소 입력칸 -->
 			<div id="placeAddress">
-	                <input type="text" id="placeAddress" name="city" placeholder="시/도">
-			<input type="text" id="placeAddress" name="district" placeholder="시/군/구" >
-			<input type="text" id="placeAddress" name="road_name" placeholder="도로명" >
-			<input type="text" id="placeAddress" name="building_number" placeholder="건물번호(선택)">
+	                <input type="text" id="placeCity" name="city" placeholder="시/도">
+			<input type="text" id="placeDistrict" name="district" placeholder="시/군/구" >
+			<input type="text" id="placeRoadName" name="road_name" placeholder="도로명" >
+			<input type="text" id="placeBuildingNumber" name="building_number" placeholder="건물번호(선택)">
 			</div>
                 	<textarea id="postText" name="text" placeholder="Share your thoughts and feeling about Movie or Place " rows="4" style="width: 969px; height: 165px;"></textarea>
                 	<input type="file" name="images" id="postImages" accept="image/*" multiple>
                 	<div id="error-message" style="color: red; display: none;">최대 4개의 이미지까지만 업로드할 수 있습니다.</div>
                 	<div id="error-message2" style="color: red; display: none;">1개의 이미지만 업로드할 수 있습니다.</div>
 			<p id="fileCount"></p>
+			<input type="hidden" id="placeBoardInput" name="placeBoard" value="false">
                 	<button type="submit">Post</button>
             	</div>
 	   </form id="createPostForm>
@@ -36,6 +37,7 @@
 	    <div id="posts">
 	    <% posts.forEach(post => { %>
 	        <div class="post">
+			<a class="movie_a" href="/post/<%= post.id %>">
 	            <!-- 게시글 작성자의 닉네임 표시 -->
 	            <p><strong><%= post.user.nickname %></strong></p>
 		    <p><%= post.content %></p>
@@ -48,7 +50,7 @@
 	                </div>
 	            <% } %>
 		<% if (userId === post.userId) { %>
-		    	<button class="edit">Edit</button>
+			<!--<button class="edit">Edit</button>-->
 			<button class="delete" onclick="deletePost(<%= post.id %>)">Delete</button>
 		<% } %>
 		<% const date = new Date(post.updatedAt); %>
@@ -62,6 +64,7 @@
         	<% const formattedDate = `${year}.${month}.${day}.${ampm} ${hour}:${minute}:${second}`; %>
 
 	            <p>Created: <%= formattedDate %></p>
+			</a>
 	        </div>
 	    <% }); %>
 	    </div>
@@ -103,12 +106,14 @@ function togglePostForm() {
         	document.querySelector('.post-form').style.display = 'block';
                 if (isPlaceBoard()) {
                     document.getElementById('movieTitle').style.display = 'block';
+		    document.getElementById('placeName').style.display = 'block';
                     document.getElementById('placeAddress').style.display = 'block';
 		    document.getElementById('createPostForm').action = '/submitPlace';
 	   	    document.querySelectorAll('#placeAddress input').forEach(input => {
                 	input.style.display = 'block';
                     });
                 } else {
+		    document.getElementById('placeName').style.display = 'none';
                     document.getElementById('movieTitle').style.display = 'none';
                     document.getElementById('placeAddress').style.display = 'none';
 		    document.querySelectorAll('#placeAddress input').forEach(input => {
@@ -138,6 +143,17 @@ function validateForm() {
             		alert('Please upload at least one image for a place'); // 에러 메시지를 표시하고
             		return false; // 제출을 막음
 		}
+                var movieTitle = document.getElementById('movieTitle').value.trim();
+                var placeName = document.getElementById('placeName').value.trim();
+                var placeCity = document.getElementById('placeCity').value.trim();
+                var placeDistrict = document.getElementById('placeDistrict').value.trim();
+                var placeRoadName = document.getElementById('placeRoadName').value.trim();
+
+                if (!movieTitle || !placeName || !placeCity || !placeDistrict || !placeRoadName) {
+                    alert('Please enter movie title and complete all address fields'); // 에러 메시지를 표시하고
+                    return false; // 제출을 막음
+                }
+		document.getElementById('placeBoardInput').value = 'true';
     	}
 
         return true; // 그렇지 않으면 제출을 진행

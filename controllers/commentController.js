@@ -1,6 +1,22 @@
 const db = require("../models");
 
 module.exports = {
+	creatPostComment: (req, res) => {
+		const postId = req.params.id;
+		const commentText = req.body.comment;
+		db.Comment.create({
+			postId: postId,
+			content: commentText,
+			userId: req.user.id
+		})
+		.then(() => {
+			res.redirect(`/post/${postId}`);
+		})
+		.catch(error => {
+			console.error(error);
+			res.redirect(`/post/${postId}`);
+		});
+	},
         creatPlaceComment: (req, res) => {
 		const placeId = req.params.id;
 		const commentText = req.body.comment;

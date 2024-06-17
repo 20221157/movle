@@ -64,12 +64,12 @@ app.post('/place/:id', placeController.getSelect);
 
 app.get("/community", userController.requireLogin, communityController.getCommunity);
 app.get("/community/:id", userController.requireLogin, communityController.getPost);
-app.post("/community/:id", userController.requireLogin, upload, communityController.createPost);
+app.post("/community/:id", userController.requireLogin, upload, communityController.creatPlace, communityController.createPost);
 
 app.delete("/post/:id", communityController.deletePost);
-app.get("/post/:id");
+app.get("/post/:id", userController.requireLogin, communityController.showPost);
 
-app.post("submitPlace", userController.requireLogin, upload, communityController.creatPlace, communityController.createPost);
+//app.post("submitPlace", userController.requireLogin, upload, communityController.creatPlace, communityController.createPost);
 app.post('/save-rating/:movieId', userController.requireLogin, movieController.saveRating)
 app.get("/map", mapController.getMap);
 //app.post('/map', mapController.getAddress);
@@ -89,6 +89,7 @@ app.post("/forgotpassword", userController.updateAndSend);
 
 app.post("/commentp/:id", userController.requireLogin, commentController.creatPlaceComment);
 app.post("/commentm/:id", userController.requireLogin, commentController.creatMovieComment);
+app.post("/comment/:id", userController.requireLogin, commentController.creatPostComment);
 
 app.post("/placeLike/:id", userController.requireLogin, likeController.addLike, placeController.getPlaceDetails);
 app.post("/movieLike/:id", userController.requireLogin, likeController.addMovieLike, movieController.getMovieDetails);

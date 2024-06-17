@@ -22,7 +22,6 @@ async function geocodeAddress(address) {
     }
 }
 
-module.exports = { geocodeAddress };
 
 
 module.exports = {

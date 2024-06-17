@@ -2,20 +2,90 @@ const db = require('../models'),
 	multer = require('multer'),
 	{ v4: uuidv4 } = require('uuid'),
 	{ body, validationResult } = require('express-validator');
+	fs = require('fs'),
+	path1 = require('path'),
 	Board = db.Board,
 	Post = db.Post,
 	PostImage = db.PostImage,
 	User = db.User;
 
-const { geocodeAddress } = require('./mapController');
 const main = require('./tmdb');
 const createNewPlace = require('../addPlace');
 
+const copyFile = (source, destination) => {
+	const fileName = path1.basename(source); // 파일 이름 추출
+        const dest = path1.join(destination, fileName); // 목적지 경로 설정
+         
+        // 파일 복사
+        fs.copyFile(source, dest, (err) => {
+	        if (err) {
+        	        console.error('Failed to copy file:', err);
+                } else {
+                        console.log('File copied successfully!');
+                }
+        });
+};
+
+async function geocodeAddress(address) {
+    try {
+        // 구글 맵 API를 사용하여 주소를 지오코딩합니다.
+        const apiKey = 'AIzaSyDS7TvY3zbDbMsQIm9dVQsg9u94tq4DAds';
+        const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
+
+        // API 요청을 보냅니다.
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+            console.log(data);
+        // 지오코딩 결과에서 위도와 경도를 추출합니다.
+        const location = data.results[0].geometry.location;
+        const latitude = location.lat;
+        const longitude = location.lng;
+        // 좌표를 반환합니다.
+        return { latitude, longitude };
+    } catch (error) {
+        throw new Error('Error geocoding address');
+    }
+}
+
+
+
 module.exports = {
+	showPost: async (req, res) => {
+		const userId = req.user.id;
+		const postId = req.params.id;
+		const post = await Post.findOne({
+			where: {id: postId},
+			include: [
+				{
+					model: User,
+					attributes: ['nickname']
+				},
+				{
+					model: PostImage,
+					attributes: ['imagePath']
+				}
+			]
+		});
+		if (!post) {
+	            return res.status(404).json({ error: '게시물을 찾을 수 없습니다.' });
+	        }
+		const comments = await db.Comment.findAll({
+			where: {
+				postId: postId
+			},
+			order: [['createdAt', 'DESC']],
+			include: [{
+				model: db.User,
+				attributes: ['nickname']
+			}]
+		});
+		res.render('post', {post, userId, comments});
+	},
         deletePost: async (req, res) => {
                  try {
                          const postId = req.params.id;
-                         await Post.findByIdAndDelete(postId);
+                         const deletedPost = await Post.findByIdAndDelete(postId);
+			
                          res.status(200).json({ message: '게시물이 성공적으로 삭제되었습니다.' });
                  }catch {
                          res.status(500).json({ error: '게시물 삭제 중 오류가 발생했습니다.' });
@@ -103,7 +173,6 @@ module.exports = {
 	},
 	getPost: async (req, res) => {
 		try {
-
 			const userId = req.user.id;
         		const boardId = req.params.id;
 			const boards = await Board.findAll();
@@ -175,10 +244,16 @@ module.exports = {
                 res.status(500).send('Internal Server Error');
             }
         },
-	creatPlace: async(req, res, nest) => {
-		console.log('aa');
+	creatPlace: async(req, res, next) => {
+		console.log(req.body);
 		try {
-	        const { movieTitle, city, district, road_name, building_number, text, images } = req.body;
+			const isPlaceBoard = req.body.placeBoard;
+			if (!isPlaceBoard){
+				next();
+			} else {
+	        const { movieTitle, name, city, district, road_name, building_number, text } = req.body;
+		const path = req.files[0].filename;
+				console.log(path);
 		let placeAddress = `${city} ${district} ${road_name}`;
 		if (building_number) {
 		    placeAddress += ` ${building_number}`;
@@ -195,8 +270,8 @@ module.exports = {
 
 	        // 주소 유효성 검사
 		let validateAddress;
-	       	const { latitude, longitude } = await geocodeAddress(placeAddress);
-        	if (latitude && longitude) {
+		const result = geocodeAddress(placeAddress);
+        	if (result) {
 			validateAddress = true;
 	        }
 		else {
@@ -204,12 +279,16 @@ module.exports = {
 		}
 
 		if (movie && validateAddress) {
-			createNewPlace(text, movieTitle, city, district, road_name, description, name, images, building_number)			
-		
+			createNewPlace(text, movieTitle, city, district, road_name, name, path, building_number);
 		}
 
-		const modifiedText = `${title}\n${placeAddress}\n${text}`;
-        	next({text: modifiedText,images});
+		const sourcePath = path1.join(__dirname, '../public/images/posts/', path);
+		const destinationPath = path1.join(__dirname, '../public/images/places/');
+		copyFile(sourcePath, destinationPath);
+		const modifiedText = `${movieTitle}\n${placeAddress}\n${text}\n`;
+		req.body.text = modifiedText;
+        	next();
+			}
     	} catch (error) {
         	res.status(400).json({ error: error.message });
     	}

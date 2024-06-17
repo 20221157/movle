@@ -1,7 +1,21 @@
 const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
-    class Place extends Model {}
+    class Place extends Model {
+	    static async findByIdAndDelete(id) {
+		    try {
+			    let place = await Place.findByPk(id);
+			    if (post) {
+				    post = await Place.destroy({
+					    where: {id: id}
+				    });
+			    }
+			    return place;
+		    }catch(err) {
+			    console.log(err);
+		    }
+	    }
+    };
 
     Place.init({
         id: {
