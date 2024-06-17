@@ -29,6 +29,17 @@ module.exports = {
 		const userNickname = req.user.nickname;
 		res.render("mypage", { layout: false, userNickname: userNickname });
 	},
+	changeNickname: async (req, res) => {
+		try{
+		const userId = req.user.id;
+		const newNickname = req.body.nickname;
+		await db.User.update({ nickname: newNickname }, { where: { id: userId } });
+		res.render("mypage", { layout: false, userNickname: newNickname});
+		}catch (error) {
+			console.error('닉네임 업데이트 중 오류:', error);
+			res.status(500).send('서버 오류로 닉네임 업데이트에 실패했습니다.');
+		}
+	},
 	redirectView: (req, res) => {
 		res.redirect('/');
 	},

@@ -72,9 +72,10 @@ app.get("/post/:id", userController.requireLogin, communityController.showPost);
 //app.post("submitPlace", userController.requireLogin, upload, communityController.creatPlace, communityController.createPost);
 app.post('/save-rating/:movieId', userController.requireLogin, movieController.saveRating)
 app.get("/map", mapController.getMap);
-//app.post('/map', mapController.getAddress);
+app.post('/map', mapController.getAddress);
 
 app.get("/mypage", userController.requireLogin, userController.renderMyPage);
+app.post("/mypage", userController.requireLogin, userController.changeNickname);
 app.get("/login", userController.login);
 app.post("/login", userController.authenticate);
 
