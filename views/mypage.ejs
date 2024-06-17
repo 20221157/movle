@@ -78,10 +78,14 @@ $(document).ready(function() {
     });
 });
 
+	    const select = '<%= select %>';
 </script>
 </head>
 </head>
 <body>
+	<% if (flash && flash.type === 'success') { %>
+	    <div class="flash success" style="text-align: center; background-color: #ffecee6b;"><%= flash.message %></div>
+	    <% } %>
 <div class="logout">
         <a href="/">
             <svg id="goHome" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
@@ -105,7 +109,7 @@ $(document).ready(function() {
 		  <a><%= userNickname %></a>
           </div>
           <svg id="btnEdit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg>
-	<form action="" method="post">
+	<form action="/mypage" method="post">
 	  <div class="edit-name-form" id="edit-name-form">
             <input type="text" id="nameInput" name ="nickname" placeholder="새 이름 입력">
             <button id="saveButton" type="submit">저장</button>
@@ -119,10 +123,10 @@ $(document).ready(function() {
             <section class="sideBar">
                 <aside id="listWrap">
                         <ul class="sideBarUl">
-                        <li><a href="#">Likes</a></li>
-                        <li><a href="#">Bookmarks</a></li>
-                        <li><a href="#">Posts</a></li>
-                        <li><a href="#">Settings</a></li>
+                        <li><a href="/mypage">Likes</a></li>
+                        <li><a href="/mypage?type=bookmarks">Bookmarks</a></li>
+                        <li><a href="/mypage?type=posts">Posts</a></li>
+                        <li><a href="/mypage?type=settings">Settings</a></li>
                         </ul>
 
                 </aside>
@@ -130,37 +134,80 @@ $(document).ready(function() {
 
             <section id="contentsWrap">
                     <span id="contentsTitle">
-                        <img src="/images/mypage/heart.png" id="titleIcon">
-                        <a id="contentsName">Likes</a>
+			    <%if ( select === 'Likes') { %>
+			    <img src="/images/mypage/heart.png" id="titleIcon">
+			    <% } else if (select === 'Bookmarks') { %>
+			    <img src="/images/mypage/bookmark.png" id="titleIcon">
+			    <% } else if (select === 'Posts') { %>
+			    <img src="/images/mypage/posts.png" id="titleIcon">
+			    <% } else if (select === 'Settings') { %>
+			    <img src="/images/mypage/settings.png" id="titleIcon">
+			    <% } %>
+			<a id="contentsName"><%= select %></a>
                     </span>
-                    <div id="contentsTree">
+                    <div id="contentsTree"><!--
                         <ul>
                             <li><a href="#">영화</a></li>
                             <li><a href="#">장소</a></li>
                             <li><a href="#">게시글</a></li>
-                        </ul>
+			</ul>-->
                     </div>
                       <div class="contentsBody">
-                            <div class="contents">
-                                <div class="likes" id="movieLikes">
+                            <div class="contents" style = "padding: 30px;">
+				<% sends.forEach(item => { %>
+				    <%if ( select === 'Likes') { %>
+                                	<div class="likes">
+						<% if (item.placeImagePath) { %>
+						<a href="/place/<%= item.placeId %>" class="item-link">
+						<% } else if (item.movieImagePath) { %>
+						<a href="/movie/<%= item.movieId %>" class="item-link">
+						<% } %>
+						<h3 class="title-style"><%= item.placeName || item.movieTitle %></h3>
+						<% if (item.placeImagePath) { %>
+						<img src="/images/places/<%= item.placeImagePath %>" alt="Place Image" style = "width: 400px; height: 300px; margin-bottom: 20px;">
+						<% } else if (item.movieImagePath) { %>
+						<img src="/images/movies/<%= item.movieImagePath %>" alt="Movie Image" style ="width: 300px; height: 400px; margin-bottom: 20px;" >
+						<% } %>
+						</a>
+                                	</div>
+				     <% } else if ( select === 'Bookmarks') { %>
+                                	<div class="bookmarks" >
+                                                <% if (item.placeImagePath) { %>
+                                                <a href="/place/<%= item.placeId %>" class="item-link">
+                                                <% } else if (item.movieImagePath) { %>
+                                                <a href="/movie/<%= item.movieId %>" class="item-link">
+                                                <% } %>
+						<h3 class = "title-style"><%= item.placeName || item.movieTitle %></h3>
+                                                <% if (item.placeImagePath) { %>
+                                                <img src="/images/places/<%= item.placeImagePath %>" alt="Place Image" style = "width: 400px; height: 300px; margin-bottom: 20px;">
+                                                <% } else if (item.movieImagePath) { %>
+                                                <img src="/images/movies/<%= item.movieImagePath %>" alt="Movie Image" style ="width: 300px; height: 400px; margin-bottom: 20px;" >
+                                                <% } %>
+						</a>
+                                	</div>
+				         <% } else if( select === 'Posts') { %>
+				          <div class="posts" style="border: 1px solid black; padding: 10px;">
+					      <a href="/post/<%= item.postId %>" class="item-link">
+						      <h3><%= item.userName %></h3>
+						      <p class = "title-style"><%= item.postContent %></p>
+						      <div class="images">
+							      <% item.images.forEach(image => { %>
+							      <img src="/images/posts/<%= image %>" alt="Post Image">
+							      <% }); %>
+						      </div>
+					      </a>
+					  </div>
+				       <% } %>
+				<% }); %>
+				<%if ( select === 'Settings') { %>
+				<div><h1> change password </h1></div>
+				<form id="changePasswordForm" method="post" action="/changePassword">
+					<input class="chpassword" type="password" name="password" placeholder="Password" required><br>
+					<input class="chpassword" type="password" name="checkPassword" placeholder="Password" required><br>
+					<input type="submit" value="Submit">
+				</form>
 
-                                </div>
-                                <div class="likes" id="postLikes">
-
-                                </div>
-                                <div class="likes" id="commentLikes">
-
-                                </div>
-                                <div class="bookmarks" id="movieBookmarks">
-
-                                </div>
-                                <div class="bookmarks" id="postBookmarks">
-
-                                </div>
-                                <div class="bookmarks" id="commentsBookmarks">
-
-                                </div>
-
+				<% } %>
                             </div>
                         </div>
                     </div>

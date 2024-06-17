@@ -96,5 +96,8 @@ app.post("/placeLike/:id", userController.requireLogin, likeController.addLike, 
 app.post("/movieLike/:id", userController.requireLogin, likeController.addMovieLike, movieController.getMovieDetails);
 app.post("/placeBookmark/:id", userController.requireLogin, bookmarkController.addBookmark, placeController.getPlaceDetails);
 app.post("/movieBookmark/:id", userController.requireLogin, bookmarkController.addMovieBookmark, movieController.getMovieDetails);
+
+app.post('/changePassword', userController.requireLogin, userController.changePassword);
+
 app.listen(port);
 

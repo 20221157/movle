@@ -25,16 +25,145 @@ module.exports = {
 			return res.redirect("/login");
 		}
 	},
-	renderMyPage: (req, res) => {
+	changePassword: async (req, res) => {
+		const password = req.body.password;
+		const checkPassword = req.body.checkPassword;
+		const userId = req.user.id;
+		
+		if (password !== checkPassword) {
+	        	return res.status(400).json({ message: 'Passwords do not match.' });
+	    	}
+		try{
+			const user = await db.User.findOne({ where: { id: userId }});
+			user.setPassword(password, async (err, updatedUser) => {
+		        	if (err) {
+		        		console.error('비밀번호 설정 오류:', err);
+		                	return res.status(500).json({ message: '비밀번호 설정 중 오류가 발생했습니다.' });
+		        	}
+		            	// 비밀번호 설정이 성공적으로 완료되었을 때
+		            	await updatedUser.save(); // 저장
+
+				req.session.flash = { type: 'success', message: '비밀번호가 성공적으로 변경되었습니다.' };
+		            	// 성공적으로 비밀번호 변경 완료
+				res.redirect('mypage');
+				//res.send('<script>alert("비밀번호가 성공적으로 변경되었습니다.");</script>');
+		        });
+		} catch (error) {
+			console.error('Error updating password:', error);
+			res.status(500).json({ message: 'Internal server error.' });
+		}
+	},
+	renderMyPage: async (req, res) => {
+		const type = req.query.type;
+		const userId = req.user.id;
+		let select;
+		let sends = [];
+		switch (type) {
+			case 'bookmarks':
+				const bookmarks = await db.Bookmark.findAll({
+					where: { userId: userId }
+				});
+		                for (const bookmark of bookmarks) {
+		                    if (bookmark.placeId) {
+		                        // 북마크에 장소 ID가 있는 경우 장소 정보 조회
+		                        const place = await db.Place.findOne({
+						where: { id: bookmark.placeId}
+					});
+		                        if (place) {
+		                            sends.push({
+		                                type: 'bookmark',
+		                                placeName: place.name,
+		                                placeImagePath: place.potoPath,
+						placeId: place.id
+		                            });
+		                        }
+		                    } else if (bookmark.movieId) {
+		                        // 북마크에 영화 ID가 있는 경우 영화 정보 조회
+		                        const movie = await db.Movie.findOne({
+						where: { id: bookmark.movieId }
+					});
+		                        if (movie) {
+		                            sends.push({
+		                                type: 'bookmark',
+		                                movieTitle: movie.title,
+		                                movieImagePath: movie.imagePath,
+						movieId: movie.id
+		                            });
+		                        }
+		                    }
+		                }
+				select = 'Bookmarks';
+				break;
+			case 'posts':
+				const posts = await db.Post.findAll({
+                                        where: { userId: userId }
+                                });
+				for (const post of posts) {
+					const user = await db.User.findOne({
+						where: {id: post.userId}
+					});
+					const postImages = await db.PostImage.findAll({
+   				                where: { postId: post.id }
+				        });
+					const images = postImages.map(img => img.imagePath);
+	                                sends.push({
+		                                type: 'post',
+		                                userName: user.nickname,
+                                                postContent: post.content,
+						postId: post.id,
+                                                images: images
+                                        });
+				}
+				select = 'Posts';
+				break;
+			case 'settings':
+				select = "Settings";
+				break;
+			default:
+				const likes =  await db.Like.findAll({
+		                        where: { userId: userId }
+		                });
+                                for (const like of likes) {
+                                    if (like.placeId) {
+                                        // 북마크에 장소 ID가 있는 경우 장소 정보 조회
+                                        const place = await db.Place.findOne({
+                                                where: { id: like.placeId}
+                                        });
+                                        if (place) {
+                                            sends.push({
+                                                type: 'bookmark',
+                                                placeName: place.name,
+                                                placeImagePath: place.potoPath,
+						placeId: place.id
+                                            });
+                                        }
+                                    } else if (like.movieId) {
+                                        // 북마크에 영화 ID가 있는 경우 영화 정보 조회
+                                        const movie = await db.Movie.findOne({
+                                                where: { id: like.movieId }
+                                        });
+                                        if (movie) {
+                                            sends.push({
+                                                type: 'bookmark',
+                                                movieTitle: movie.title,
+                                                movieImagePath: movie.imagePath,
+						movieId: movie.id
+                                            });
+                                        }
+                                    }
+                                }
+				select = 'Likes';
+		}
 		const userNickname = req.user.nickname;
-		res.render("mypage", { layout: false, userNickname: userNickname });
+		res.render("mypage", { layout: false, userNickname: userNickname, sends, select, flash: req.session.flash });
 	},
 	changeNickname: async (req, res) => {
 		try{
 		const userId = req.user.id;
 		const newNickname = req.body.nickname;
 		await db.User.update({ nickname: newNickname }, { where: { id: userId } });
-		res.render("mypage", { layout: false, userNickname: newNickname});
+		//res.render("mypage", { layout: false, userNickname: newNickname});
+		res.redirect('mypage');
 		}catch (error) {
 			console.error('닉네임 업데이트 중 오류:', error);
 			res.status(500).send('서버 오류로 닉네임 업데이트에 실패했습니다.');

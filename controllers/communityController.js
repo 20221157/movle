@@ -262,7 +262,7 @@ module.exports = {
 	        let movie = await db.Movie.findOne({ title: movieTitle });
         	if (!movie) {
 	            // 데이터베이스에 없는 경우, TMDB에서 검색
-        	    movie = await main(movieTitle);
+        	    // movie = await main(movieTitle);
 	            if (!movie) {
         	        throw new Error('영화를 찾을 수 없습니다.');
             		}

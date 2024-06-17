@@ -1,3 +1,20 @@
+.chpassword {
+	width: 250px;
+	height: 30px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+.item-link {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+.title-style {
+	margin-bottom: 10px;
+}
 .logout{
     width:100%;
     height: 30px;
@@ -261,7 +278,7 @@ nav{
     background-color: #ffecee6b;
     border-radius: 3px;
     flex-grow: 1;
-    height: 100vh;
+    height: auto;
 }
 #contentsTree{
 
