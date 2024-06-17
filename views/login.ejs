@@ -8,6 +8,11 @@
 </head>
 <body>
     <div class="login-container">
+	    <% if (typeof messages !== 'undefined' && messages.success) { %>
+	    <div class="alert alert-success">
+		    <%= messages.success %>
+	    </div>
+	    <% } %>
         <h2>Login</h2>
         <form action="/login" method="POST">
             <input type="text" name="id" placeholder="User Id" required><br>

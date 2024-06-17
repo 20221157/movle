@@ -52,8 +52,9 @@ module.exports = {
 				if (err) {
 					console.error('사용자 등록 실패:', err);
 				} else {
+					req.flash('success', '사용자 등록이 성공적으로 완료되었습니다.');
 					console.log('사용자 등록 완료:', user);
-					res.redirect('/');
+					res.redirect('/login');
 				}
 			}); 
 

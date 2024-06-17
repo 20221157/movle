@@ -90,7 +90,6 @@ exports.getPlaceDetails = async (req, res) => {
   const placeId = req.params.id;
   
   try {
-	  const isLogged = req.isAuthenticated();
     	const place = await db.Place.findByPk(placeId)
 	const movie = await db.Movie.findByPk(place.movieId);
 	  const address = await db.Address.findByPk(place.addressId);
@@ -108,7 +107,65 @@ exports.getPlaceDetails = async (req, res) => {
 	        // 가져온 장소들을 place 객체에 추가합니다.
         place.similarPlaces = similarPlaces;
     }
-	  res.render('place/detail',{ isLogged, place});
+	  const comments = await db.Comment.findAll({
+		              where: {
+				                      placeId: place.id
+				                  },
+		              order: [['createdAt', 'DESC']],// 최신 댓글부터 정렬
+		  	      include: [{
+				              model: db.User,
+				              attributes: ['nickname'] // 사용자의 닉네임 필드만 가져오도록 설정
+			     }]
+         });
+	  let hasCommented = false;
+	  if (req.user && req.user.id) {
+	  const existingComment = await db.Comment.findOne({
+		              where: {
+				                      userId: req.user.id,
+				                      placeId: place.id
+				                  }
+		          });
+		  hasCommented = !!existingComment;
+	  } else {
+		  hasCommented = true;
+	  }
+
+	let hasLiked = false;
+
+	    if (req.user && req.user.id) {
+	        // 사용자가 로그인한 상태인 경우
+	        const existingLike = await db.Like.findOne({
+	            where: {
+	                userId: req.user.id,
+	                placeId: place.id
+	            }
+	        });
+
+	        // existingLike이 존재하면 true, 그렇지 않으면 false
+	        hasLiked = !!existingLike;
+	    } else {
+	        // 사용자가 로그인하지 않은 경우
+	        hasLiked = false;
+	    }
+	    let hasBookmark = false;
+
+            if (req.user && req.user.id) {
+                // 사용자가 로그인한 상태인 경우
+                const existingBookmark = await db.Bookmark.findOne({
+                    where: {
+                        userId: req.user.id,
+                        placeId: place.id
+                    }
+                });
+
+                // existingLike이 존재하면 true, 그렇지 않으면 false
+                hasBookmark = !!existingBookmark;
+            } else {
+                // 사용자가 로그인하지 않은 경우
+                hasBookmark = false;
+            }
+
+	  res.render('place/detail',{ place, comments, hasCommented, hasLiked, hasBookmark});
   } catch (error) {
     console.error('Error getting place details:', error);
     res.status(500).send('Error getting place details');

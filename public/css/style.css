@@ -110,6 +110,7 @@ align-items: center;
 /* Order correctly by floating highest to the right */
 .rate > label {
     float: right;
+    color: #F2F2F2;
 }
 /* The star of the show */
 .rate > label:before {

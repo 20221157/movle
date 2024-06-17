@@ -1,6 +1,7 @@
 const port = 80,
 	express = require("express"),
 	multer = require('multer'),
+	flash = require('express-flash'),
 	app = express(),
 	session = require('express-session'),
 	layouts = require("express-ejs-layouts"),
@@ -9,11 +10,15 @@ const port = 80,
 	passport = require("passport"),
 	nodemailer = require('nodemailer'),
 	mapController = require('./controllers/mapController'),
+	ratingController = require('./controllers/ratingController'),
 	placeController = require('./controllers/placeController'),
 	movieController = require('./controllers/movieController'),
 	homeController = require('./controllers/homeController'),
 	userController = require('./controllers/userController'),
-	upload = require('./controllers/multerConfig');
+	commentController = require('./controllers/commentController'),
+	upload = require('./controllers/multerConfig'),
+	bookmarkController = require('./controllers/bookmarkController'),
+	likeController = require('./controllers/likeController'),
 	communityController = require('./controllers/communityController');
 
 db.sequelize.sync();
@@ -30,6 +35,7 @@ app.use(
 		      extended: false
 		    })
 );
+app.use(flash());
 app.use(express.json());
 app.use(layouts);
 app.use(express.static("public"));
@@ -64,6 +70,7 @@ app.delete("/post/:id", communityController.deletePost);
 app.get("/post/:id");
 
 app.post("submitPlace", userController.requireLogin, upload, communityController.creatPlace, communityController.createPost);
+app.post('/save-rating/:movieId', userController.requireLogin, movieController.saveRating)
 app.get("/map", mapController.getMap);
 //app.post('/map', mapController.getAddress);
 
@@ -80,7 +87,12 @@ app.get("/forgotpassword", (req,res) => {
 });
 app.post("/forgotpassword", userController.updateAndSend);
 
+app.post("/commentp/:id", userController.requireLogin, commentController.creatPlaceComment);
+app.post("/commentm/:id", userController.requireLogin, commentController.creatMovieComment);
 
-
+app.post("/placeLike/:id", userController.requireLogin, likeController.addLike, placeController.getPlaceDetails);
+app.post("/movieLike/:id", userController.requireLogin, likeController.addMovieLike, movieController.getMovieDetails);
+app.post("/placeBookmark/:id", userController.requireLogin, bookmarkController.addBookmark, placeController.getPlaceDetails);
+app.post("/movieBookmark/:id", userController.requireLogin, bookmarkController.addMovieBookmark, movieController.getMovieDetails);
 app.listen(port);
 

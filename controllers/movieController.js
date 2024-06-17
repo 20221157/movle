@@ -61,12 +61,40 @@ exports.getMovies = async (req, res) => {
     res.status(500).send('Error getting movies');
   }
 };
+exports.saveRating = async (req, res) => {
+	const { movieId } = req.params; // URL에서 영화 ID 가져오기
+	const { rating } = req.body;    // 요청 본문에서 별점 값 가져오기
+	const userId = req.user.id;
+	console.log(rating);
+	try {
+		let rating = await Rating.findOne({
+        		where: { userId: userId, movieId: movieId }
+    		});
 
+    		if (!rating) {
+		        // 데이터가 없으면 생성
+	        	rating = await db.Rating.create({
+		            userId: userId,
+	        	    movieId: movieId,
+	        	    rating: rating
+		        });
+
+        		console.log('별점이 성공적으로 생성되었습니다.');
+    		} else {
+	        	// 데이터가 있으면 수정
+        		rating.rating = rating; // 별점 값 업데이트
+        		await rating.save(); // 변경 사항 저장
+
+		        console.log('별점이 성공적으로 수정되었습니다.');
+    		}
+	} catch (error) {
+		console.error('별점 저장 중 오류:', error);
+		res.status(500).send('별점 저장 중 오류가 발생했습니다.');
+	}
+};
 exports.getMovieDetails = async (req, res) => {
   const movieId = req.params.id;
-  let userId; //userId를 movie page에 넣어주면 클라이언트에서 좋아요,북마크,코멘트 할 때 userId를 서버에보내줄 것임
   try {
-	  const isLogged = req.isAuthenticated();
     const movie = await db.Movie.findByPk(movieId, {
       include: [
         {
@@ -89,16 +117,67 @@ exports.getMovieDetails = async (req, res) => {
     if (!movie) {
       return res.status(404).send('Movie not found');
     }
-    if(req.isAuthenticated()){ //userId 초기화 : 로그인 여부 확인
-        userId = req.user.dataValues.id;
-    } else{
-     userId = undefined; // 
-    }
+     const comments = await db.Comment.findAll({
+	     where: {
+		     movieId: movieId
+	     },
+	     order: [['createdAt', 'DESC']],// 최신 댓글부터 정렬
+	     include: [{
+	     	model: db.User,
+	     	attributes: ['nickname'] // 사용자의 닉네임 필드만 가져오도록 설정
+	     
+     	     }]
+     });
+	  let hasCommented = false;
+	            if (req.user && req.user.id) {
+			    const existingComment = await db.Comment.findOne({
+			    	where: {
+			    		userId: req.user.id,
+				        movieId: movieId
+		    		}
+                             });
+                             hasCommented = !!existingComment;
+	              } else {
+                             hasCommented = true;
+                      }
+	    let hasLiked = false;
 
-    // 영화 상세 정보를 렌더링할 템플릿에 전달
-    res.render('movie/detail',{ isLogged, userId,movie});
+            if (req.user && req.user.id) {
+                // 사용자가 로그인한 상태인 경우
+                const existingLike = await db.Like.findOne({
+                    where: {
+                        userId: req.user.id,
+                        movieId: movie.id
+                    }
+                });
+
+                // existingLike이 존재하면 true, 그렇지 않으면 false
+                hasLiked = !!existingLike;
+            } else {
+                // 사용자가 로그인하지 않은 경우
+                hasLiked = false;
+            }
+
+            let hasBookmark = false;
+            if (req.user && req.user.id) {
+                // 사용자가 로그인한 상태인 경우
+                const existingBookmark = await db.Bookmark.findOne({
+                    where: {
+                        userId: req.user.id,
+                        movieId: movie.id
+                    }
+                });
+
+                // existingLike이 존재하면 true, 그렇지 않으면 false
+                hasBookmark = !!existingBookmark;
+            } else {
+                // 사용자가 로그인하지 않은 경우
+                hasBookmark = false;
+            }
+	  res.render('movie/detail',{ movie, comments, hasCommented, hasLiked, hasBookmark});
   } catch (error) {
     console.error('Error getting movie details:', error);
     res.status(500).send('Error getting movie details');
   }
+
 }

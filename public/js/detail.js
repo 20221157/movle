@@ -46,3 +46,4 @@ function toggleLike() {
     var commentForm = document.querySelector('.comment-form');
     commentForm.style.display = 'none';
 }
+
