@@ -38,9 +38,9 @@ module.exports = {
 	      const { latitude, longitude } = await geocodeAddress(address.full_address);
 	      const places = await db.Place.findAll({ where: { addressId: address.id } });
 	      const photoPaths = places.map(place => place.potoPath);
-
 	      addressData.push({ latitude, longitude, addressInfo: address, photoPaths: photoPaths });
 	    }
+
 	    // 클라이언트에게 지도와 주소 데이터를 JSON 형태로 전송합니다.
 	    res.render('map', { mapData: addressData }); // 클라이언트에서 이 데이터를 활용하여 지도에 핀을 표시합니다.
 	  } catch (error) {
