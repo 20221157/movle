@@ -53,10 +53,12 @@
 			<ul id="actor">
 				<% if (place.similarPlaces && place.similarPlaces.length > 0) { %>
 					    <% place.similarPlaces.forEach(similarPlace => { %>
-						      <li>
+					    <a href="/place/<%= similarPlace.id %>" style="text-decoration: none; color: inherit;">
+					    <li>
 						      <img src="/images/places/<%= similarPlace.potoPath %>" alt="<%= similarPlace.name %>" style="width: 330px; height: 230px;">
         <div class="name"><%= similarPlace.name %></div>
-						      </li>
+						</li>
+					    </a>
     <% }); %>
 <% } else { %>
   <p>null</p>

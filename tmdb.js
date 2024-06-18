@@ -117,4 +117,4 @@ async function main(movieTitle) {
 }
 
 // 사용
-main('킹덤') //영화 제목을 여기에 입력하세요
+main('리틀 포레스트') //영화 제목을 여기에 입력하세요
