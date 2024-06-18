@@ -99,5 +99,7 @@ app.post("/movieBookmark/:id", userController.requireLogin, bookmarkController.a
 
 app.post('/changePassword', userController.requireLogin, userController.changePassword);
 
+app.post('/rate/:id', ratingController.saveRate);
+
 app.listen(port);
 

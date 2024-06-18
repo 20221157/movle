@@ -4,6 +4,30 @@ const db = require('../models');
 const { Movie, Director, Actor } = require('../models');
 const { Op } = require('sequelize');
 
+async function getAverageRating(placeId) {
+  try {
+    const ratings = await db.Rating.findAll({
+      where: {
+        placeId: placeId
+      },
+      attributes: ['rating']
+    });
+
+    if (ratings.length === 0) {
+      return 0; // 별점이 없으면 0 반환
+    }
+
+    const total = ratings.reduce((sum, rating) => sum + rating.rating, 0);
+    const average = total / ratings.length;
+
+    return Math.round(average);
+  } catch (error) {
+    console.error('평균 별점 계산 오류:', error);
+    throw error;
+  }
+}
+
+
 exports.getSelect = async (req, res) => {
     const searchQuery = req.body.name.toLowerCase();
 
@@ -174,7 +198,25 @@ exports.getMovieDetails = async (req, res) => {
                 // 사용자가 로그인하지 않은 경우
                 hasBookmark = false;
             }
-	  res.render('movie/detail',{ movie, comments, hasCommented, hasLiked, hasBookmark});
+           let  averageRating;
+          if (req.user && req.user.id) {
+                 let userRating = await db.Rating.findOne({
+                         where: {
+                                 userId: req.user.id,
+                                 movieId: movieId
+                        }
+                });
+                if (userRating) {
+                        // 사용자가 이미 별점을 입력한 경우
+                        averageRating = userRating.rating
+                } else {
+                        // 사용자가 별점을 입력하지 않은 경우, 평균 별점 계산
+                        averageRating = await getAverageRating(movieId);
+                }
+          } else {
+                  averageRating = await getAverageRating(movie);
+          }
+	  res.render('movie/detail',{ movie, comments, hasCommented, hasLiked, hasBookmark,  averageRating});
   } catch (error) {
     console.error('Error getting movie details:', error);
     res.status(500).send('Error getting movie details');

@@ -96,6 +96,11 @@ align-items: center;
 	text-decoration: none;
 	color: white;
 }
+.rate label.filled-star:before {
+	    content: "\f005"; /* 별 아이콘 (FontAwesome 사용 예시) */
+	        color: #ffbcf8; /* 채워진 별 색상 설정 */
+		}
+
 
 /* Ratings widget */
 .rate {

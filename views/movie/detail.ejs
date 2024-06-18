@@ -10,11 +10,11 @@
                     <div class="star-Rating">
                         <div class="rating">
                             <fieldset class="rate">
-                                <input type="radio" id="rating5" name="rating" value="5" /><label for="rating5" title="5 stars"></label>
-                                <input type="radio" id="rating4" name="rating" value="4" /><label for="rating4" title="4 stars"></label>
-                                <input type="radio" id="rating3" name="rating" value="3" /><label for="rating3" title="3 stars"></label>
-                                <input type="radio" id="rating2" name="rating" value="2" /><label for="rating2" title="2 star"></label>
-                                <input type="radio" id="rating1" name="rating" value="1" /><label for="rating1" title="1 star"></label>
+                                <input type="radio" id="rating5" name="rating" value="5" /><label for="rating5" title="5 stars" onclick="sendPlaceRating(5)"></label>
+                                <input type="radio" id="rating4" name="rating" value="4" /><label for="rating4" title="4 stars" onclick="sendPlaceRating(4)"></label>
+                                <input type="radio" id="rating3" name="rating" value="3" /><label for="rating3" title="3 stars" onclick="sendPlaceRating(3)"></label>
+                                <input type="radio" id="rating2" name="rating" value="2" /><label for="rating2" title="2 star" onclick="sendPlaceRating(2)"></label>
+                                <input type="radio" id="rating1" name="rating" value="1" /><label for="rating1" title="1 star" onclick="sendPlaceRating(1)"></label>
                             </fieldset>
                         </div>
                     </div>
@@ -111,4 +111,6 @@
 </div>
 
 
-
+<script>
+	        const averageRating = <%= averageRating %>; // 서버에서 전달된 평균 별점
+</script>
