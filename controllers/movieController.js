@@ -4,15 +4,15 @@ const db = require('../models');
 const { Movie, Director, Actor } = require('../models');
 const { Op } = require('sequelize');
 
-async function getAverageRating(placeId) {
+async function getAverageRating(movieId) {
   try {
+	  console.log(movieId);
     const ratings = await db.Rating.findAll({
       where: {
-        placeId: placeId
+        movieId: movieId
       },
       attributes: ['rating']
     });
-
     if (ratings.length === 0) {
       return 0; // 별점이 없으면 0 반환
     }
@@ -214,7 +214,7 @@ exports.getMovieDetails = async (req, res) => {
                         averageRating = await getAverageRating(movieId);
                 }
           } else {
-                  averageRating = await getAverageRating(movie);
+                  averageRating = await getAverageRating(movieId);
           }
 	  res.render('movie/detail',{ movie, comments, hasCommented, hasLiked, hasBookmark,  averageRating});
   } catch (error) {
