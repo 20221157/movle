@@ -248,7 +248,7 @@ module.exports = {
 		console.log(req.body);
 		try {
 			const isPlaceBoard = req.body.placeBoard;
-			if (!isPlaceBoard){
+			if (isPlaceBoard === 'false'){
 				next();
 			} else {
 	        const { movieTitle, name, city, district, road_name, building_number, text } = req.body;
